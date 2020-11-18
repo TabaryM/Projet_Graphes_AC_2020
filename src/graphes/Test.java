@@ -1,4 +1,4 @@
-package graphes;//package graphe;
+package graphes;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -8,109 +8,93 @@ import java.util.Scanner;
 
 public class Test{
 
+	/**
+	 * Affiche dans le terminal imprime dans un fichier .tex la structure d'un labyrinthe défini par un graphe
+	 * @param G Graphe en grille de taille size * size
+	 * @param size taille du labyrinthe
+	 * @param file fichier .tex où sera écrit le labyrinthe
+	 */
     public static void printLaby(Graph G, int size, String file){
-    {
-	/* suppose que G est une grille de taille size x size et 
-           crée un .tex qui contient le labyrinthe correspondant */
-	
-	try
-	    {                      
-		PrintWriter writer = new PrintWriter(file, StandardCharsets.UTF_8);
-		writer.println("\\documentclass{article}\\usepackage{tikz}\\begin{document}");
-		writer.println("\\begin{tikzpicture}");
+		/* suppose que G est une grille de taille size x size et
+			   crée un .tex qui contient le labyrinthe correspondant */
+		try {
+			PrintWriter writer = new PrintWriter(file, StandardCharsets.UTF_8);
+			writer.println("\\documentclass{article}\\usepackage{tikz}\\begin{document}");
+			writer.println("\\begin{tikzpicture}");
 
-		for (int i = 0; i < size; i++)
-		    for (int j = 0; j < size; j++)
-		    {			
-			writer.println(String.format(Locale.US, "\\begin{scope}[xshift=%dcm, yshift=%dcm]", i , j));
-			writer.println("\\draw (0.1,0.1) -- (0.4,0.1);");
-			writer.println("\\draw (0.6,0.1) -- (0.9,0.1);");
-			writer.println("\\draw (0.1,0.9) -- (0.4,0.9);");
-			writer.println("\\draw (0.6,0.9) -- (0.9,0.9);");
-			writer.println("\\draw (0.1,0.1) -- (0.1, 0.4);");
-			writer.println("\\draw (0.1,0.6) -- (0.1, 0.9);");
-			writer.println("\\draw (0.9,0.1) -- (0.9,0.4);");
-			writer.println("\\draw (0.9,0.6) -- (0.9,0.9);");
-			writer.println("\\end{scope}");
-		    }
-
-		/* bord */
-		for (int i = 0; i < size; i++)
-		    {
-			writer.println(String.format(Locale.US, "\\begin{scope}[xshift=%dcm, yshift=%dcm]", i , 0));
-			writer.println("\\draw(0.4,0.1) -- (0.6, 0.1);");
-			writer.println("\\end{scope}");			
-			writer.println(String.format(Locale.US, "\\begin{scope}[xshift=%dcm, yshift=%dcm]", i , size-1));
-			writer.println("\\draw(0.4,0.9) -- (0.6, 0.9);");
-			writer.println("\\end{scope}");
-			if (i > 0)
-			    {
-				writer.println(String.format(Locale.US, "\\begin{scope}[xshift=%dcm, yshift=%dcm]", 0 , i));
-				writer.println("\\draw(0.1,0.4) -- (0.1, 0.6);");
-				writer.println("\\end{scope}");
-			
-			    }
-			if (i < size - 1)
-			    {
-				writer.println(String.format(Locale.US, "\\begin{scope}[xshift=%dcm, yshift=%dcm]", size -1 , i));
-				writer.println("\\draw(0.9,0.4) -- (0.9, 0.6);");
-				writer.println("\\end{scope}");
-			
-			    }
-			writer.println("\\draw (0,0.4) -- (0.1, 0.4);");
-			writer.println("\\draw (0,0.6) -- (0.1, 0.6);");
-			writer.println(String.format(Locale.US, "\\draw (%d, %d) ++ (0, 0.4)  -- ++ (-0.1, 0); ", size , size -1));
-			writer.println(String.format(Locale.US, "\\draw (%d, %d) ++ (0, 0.6)  -- ++ (-0.1, 0); ", size , size -1));
-
-		    }
-		
-		
-		for (Edge e: G.edges())
-		    {
-			int i = e.from % size;
-			int j = e.from / size;
-			writer.println(String.format(Locale.US, "\\begin{scope}[xshift=%dcm, yshift=%dcm]", i , j));
-			if (e.to == e.from + size){
-			    /* arête verticale */
-			    if (!e.used)
-				{
-				    writer.println("\\draw (0.4,0.9) -- (0.6,0.9);");
-				    writer.println("\\draw (0.4,1.1) -- (0.6,1.1);");			    			    
-				}
-			    else
-				{
-				    writer.println("\\draw (0.4,0.9) -- (0.4,1.1);");
-				    writer.println("\\draw (0.6,0.9) -- (0.6,1.1);");			    			    
+			for (int i = 0; i < size; i++) {
+				for (int j = 0; j < size; j++) {
+					writer.println(String.format(Locale.US, "\\begin{scope}[xshift=%dcm, yshift=%dcm]", i , j));
+					writer.println("\\draw (0.1,0.1) -- (0.4,0.1);");
+					writer.println("\\draw (0.6,0.1) -- (0.9,0.1);");
+					writer.println("\\draw (0.1,0.9) -- (0.4,0.9);");
+					writer.println("\\draw (0.6,0.9) -- (0.9,0.9);");
+					writer.println("\\draw (0.1,0.1) -- (0.1, 0.4);");
+					writer.println("\\draw (0.1,0.6) -- (0.1, 0.9);");
+					writer.println("\\draw (0.9,0.1) -- (0.9,0.4);");
+					writer.println("\\draw (0.9,0.6) -- (0.9,0.9);");
+					writer.println("\\end{scope}");
 				}
 			}
-			else{
-			    /* arête horizontale */
-			    
-			    if (!e.used)
-				{
-				    writer.println("\\draw (0.9,0.4) -- (0.9,0.6);");
-				    writer.println("\\draw (1.1,0.4) -- (1.1,0.6);");			    			    
-				}
-			    else
-				{
-				    writer.println("\\draw (0.9,0.4) -- (1.1,0.4);");
-				    writer.println("\\draw (0.9,0.6) -- (1.1,0.6);");			    			    
-				}
-			    }
-			    writer.println("\\end{scope}");
-		    }
-		writer.println("\\end{tikzpicture}");
-		writer.println("\\end{document}");
-		writer.close();
-	    }
-	catch (IOException e)
-	    {
-	    }                                             
-    }    
-	
 
-	    
-    }	
+			/* bord */
+			for (int i = 0; i < size; i++) {
+					writer.println(String.format(Locale.US, "\\begin{scope}[xshift=%dcm, yshift=%dcm]", i , 0));
+					writer.println("\\draw(0.4,0.1) -- (0.6, 0.1);");
+					writer.println("\\end{scope}");
+					writer.println(String.format(Locale.US, "\\begin{scope}[xshift=%dcm, yshift=%dcm]", i , size-1));
+					writer.println("\\draw(0.4,0.9) -- (0.6, 0.9);");
+					writer.println("\\end{scope}");
+				if (i > 0) {
+					writer.println(String.format(Locale.US, "\\begin{scope}[xshift=%dcm, yshift=%dcm]", 0 , i));
+					writer.println("\\draw(0.1,0.4) -- (0.1, 0.6);");
+					writer.println("\\end{scope}");
+				}
+				if (i < size - 1) {
+					writer.println(String.format(Locale.US, "\\begin{scope}[xshift=%dcm, yshift=%dcm]", size -1 , i));
+					writer.println("\\draw(0.9,0.4) -- (0.9, 0.6);");
+					writer.println("\\end{scope}");
+				}
+				writer.println("\\draw (0,0.4) -- (0.1, 0.4);");
+				writer.println("\\draw (0,0.6) -- (0.1, 0.6);");
+				writer.println(String.format(Locale.US, "\\draw (%d, %d) ++ (0, 0.4)  -- ++ (-0.1, 0); ", size , size -1));
+				writer.println(String.format(Locale.US, "\\draw (%d, %d) ++ (0, 0.6)  -- ++ (-0.1, 0); ", size , size -1));
+			}
+
+			for (Edge e: G.edges()) {
+				int i = e.from % size;
+				int j = e.from / size;
+				writer.println(String.format(Locale.US, "\\begin{scope}[xshift=%dcm, yshift=%dcm]", i , j));
+				if (e.to == e.from + size) {
+					/* arête verticale */
+					if (!e.used) {
+						writer.println("\\draw (0.4,0.9) -- (0.6,0.9);");
+						writer.println("\\draw (0.4,1.1) -- (0.6,1.1);");
+					} else {
+						writer.println("\\draw (0.4,0.9) -- (0.4,1.1);");
+						writer.println("\\draw (0.6,0.9) -- (0.6,1.1);");
+					}
+				}
+				else{
+					/* arête horizontale */
+					if (!e.used) {
+						writer.println("\\draw (0.9,0.4) -- (0.9,0.6);");
+						writer.println("\\draw (1.1,0.4) -- (1.1,0.6);");
+					}
+					else {
+						writer.println("\\draw (0.9,0.4) -- (1.1,0.4);");
+						writer.println("\\draw (0.9,0.6) -- (1.1,0.6);");
+					}
+				}
+				writer.println("\\end{scope}");
+			}
+			writer.println("\\end{tikzpicture}");
+			writer.println("\\end{document}");
+			writer.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    }
     
     public static void main(String[] args) {
 	int size = 4;
@@ -120,6 +104,7 @@ public class Test{
 	System.out.println("appuyez sur une touche");
 	new Scanner(System.in).nextLine();
 	d.close();
-	printLaby(G,size, "toto.tex");
+	printLaby(G, size, "toto.tex");
+	G.writeFile("tata.dot");
     }
 } 

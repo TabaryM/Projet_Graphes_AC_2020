@@ -8,36 +8,73 @@ import java.awt.*;
 import java.awt.image.*;
 
 class Graph{
+	/**
+	 * Tableau de liste d'adjacences des sommets
+	 * Pour chaque sommet v on a une List d'arête qui y sont rattaché.
+	 */
 	private final ArrayList<Edge>[] adj;
+	/**
+	 * Tableau de coordonnées en x des sommets
+	 */
 	private final int[] coordX;
+	/**
+	 * Tableau des coordonnées en y des sommets
+	 */
 	private final int[] coordY;
+	/**
+	 * Nombre de sommets du graphe
+	 */
 	private final int V;
+	/**
+	 * Nombre d'arête du graphe
+	 */
 	private int E;
 
+	/**
+	 * Créer un graphe à N sommets
+	 * @param N nombre de sommets du graphe
+	 */
 	@SuppressWarnings("unchecked")
 	public Graph(int N){
 		this.V = N;
 		this.E = 0;
 		adj = (ArrayList<Edge>[]) new ArrayList[N];
-		for (int v= 0; v < N; v++)
-		adj[v] = new ArrayList<Edge>();
+		for (int v= 0; v < N; v++) {
+			adj[v] = new ArrayList<Edge>();
+		}
 		coordX = new int[N];
 		coordY = new int[N];
-		for (int v= 0; v < N; v++)
-		coordX[v] = 0;
-		for (int v= 0; v < N; v++)
-		coordY[v] = 0;
+		for (int v= 0; v < N; v++) {
+			coordX[v] = 0;
+		}
+		for (int v= 0; v < N; v++) {
+			coordY[v] = 0;
+		}
 	}
 
+	/**
+	 * Retourne le nombre de sommets
+	 * @return V le nombre de sommets du graphe
+	 */
 	public int vertices(){
 		return V;
 	}
 
+	/**
+	 * Fixe les coordonnées (x, y) d'un sommet i
+	 * @param i : numéro du sommet
+	 * @param x : coordonnées en abscisse du sommet
+	 * @param y : coordonnées en ordonnée du sommet
+	 */
 	public void setCoordinate(int i, int x, int y){
 		coordX[i] = x;
 		coordY[i] = y;
 	}
 
+	/**
+	 * Ajoute une arête au graphe, met à jours les listes d'adjacences des sommets connectés
+	 * @param e : l'arête ajoutée
+	 */
 	public void addEdge(Edge e){
 		int v = e.from;
 		int w = e.to;
@@ -45,10 +82,19 @@ class Graph{
 		adj[w].add(e);
 	}
 
+	/**
+	 * Retourne une copie de la liste d'adjacence d'un sommet
+	 * @param v : le sommet qui nous interesse
+	 * @return  La liste des arêtes qui sont connectées à ce sommet
+	 */
 	public ArrayList<Edge> adj(int v){
 		return new ArrayList<Edge>(adj[v]);
 	}
 
+	/**
+	 * Retourne la liste de toutes les arêtes du graphe
+	 * @return La liste de toutes les arêtes
+	 */
 	public ArrayList<Edge> edges(){
 		ArrayList<Edge> list = new ArrayList<Edge>();
 		for (int v = 0; v < V; v++) {
@@ -61,6 +107,10 @@ class Graph{
 		return list;
 	}
 
+	/**
+	 * Retourne le graphe G1 donné sur le sujet
+	 * @return graphe d'exemple avec 7 sommets et 11 arêtes
+	 */
 	static Graph example(){
 		Graph g = new Graph(4);
 		g.setCoordinate(0, 100,100);
@@ -75,6 +125,12 @@ class Graph{
 		return g;
 	}
 
+	/**
+	 * Créer un graphe de n * n sommets
+	 * Positionne les sommets sur une grille carrée de sorte à ce que les sommets soient connecté à max 4 autres sommets (les 4 voisins)
+	 * @param n taille de la grille
+	 * @return Graphe de taille n * n
+	 */
 	static Graph Grid(int n){
 		Graph g = new Graph(n*n);
 		int i,j;
@@ -129,6 +185,7 @@ class Graph{
 	}
 
 	public void writeFile(String s) {
+		// Visualisable sur le site https://dreampuf.github.io/GraphvizOnline/
 		try {
 			PrintWriter writer = new PrintWriter(s, StandardCharsets.UTF_8);
 			writer.println("digraph G{");

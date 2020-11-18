@@ -6,6 +6,10 @@ import java.awt.*;
 public class Display extends JFrame {
     private JLabel jlabel ;
     boolean visible;
+
+    /**
+     * Créer un affichage du graphe (pour débugger)
+     */
     public  Display() {
         super("Image");       // Titre de la fenêtre
         setPreferredSize(new Dimension(400, 500));  // largeur, hauteur
@@ -23,8 +27,8 @@ public class Display extends JFrame {
 	    jlabel.setIcon(new ImageIcon(blop));
     }
 
-    /** La fenêtre n'est plus visible
-     *
+    /**
+     * La fenêtre n'est plus visible
      */
     public void close() {
         this.dispose();
