@@ -6,8 +6,10 @@ import java.io.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.*;
+import java.util.Arrays;
+import java.util.Objects;
 
-class Graph{
+public class Graph{
 	/**
 	 * Tableau de liste d'adjacences des sommets
 	 * Pour chaque sommet v on a une List d'arête qui y sont rattaché.
@@ -111,7 +113,7 @@ class Graph{
 	 * Retourne le graphe G1 donné sur le sujet
 	 * @return graphe d'exemple avec 7 sommets et 11 arêtes
 	 */
-	static Graph example(){
+	public static Graph example(){
 		Graph g = new Graph(4);
 		g.setCoordinate(0, 100,100);
 		g.setCoordinate(1, 300,300);
@@ -131,7 +133,7 @@ class Graph{
 	 * @param n taille de la grille
 	 * @return Graphe de taille n * n
 	 */
-	static Graph Grid(int n){
+	public static Graph Grid(int n){
 		Graph g = new Graph(n*n);
 		int i,j;
 		for (i = 0 ; i < n; i ++){
@@ -197,5 +199,34 @@ class Graph{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Graph graph = (Graph) o;
+		return V == graph.V &&
+				E == graph.E &&
+				Arrays.equals(adj, graph.adj) &&
+				Arrays.equals(coordX, graph.coordX) &&
+				Arrays.equals(coordY, graph.coordY);
+	}
+
+	@Override
+	public int hashCode() {
+		int result = Objects.hash(V, E);
+		result = 31 * result + Arrays.hashCode(adj);
+		result = 31 * result + Arrays.hashCode(coordX);
+		result = 31 * result + Arrays.hashCode(coordY);
+		return result;
+	}
+
+	public int getCoordX(int i) {
+		return coordX[i];
+	}
+
+	public int getCoordY(int i) {
+		return coordY[i];
 	}
 }

@@ -1,6 +1,6 @@
 package graphes;
 
-class Edge {
+public class Edge {
     int from;
     int to;
     boolean used;
@@ -27,5 +27,21 @@ class Edge {
         } else {
             return this.from;
         }
+    }
+
+    public int getFrom() {
+        return from;
+    }
+
+    public int getTo() {
+        return to;
+    }
+
+    public void setUsed(boolean used) {
+        this.used = used;
+    }
+
+    public boolean isUsed() {
+        return used;
     }
 }

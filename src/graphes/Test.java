@@ -104,7 +104,7 @@ public class Test{
 	System.out.println("appuyez sur une touche");
 	new Scanner(System.in).nextLine();
 	d.close();
-	printLaby(G, size, "toto.tex");
-	G.writeFile("tata.dot");
+	printLaby(G, size, "out/toto.tex");
+	G.writeFile("out/tata.dot");
     }
 } 
