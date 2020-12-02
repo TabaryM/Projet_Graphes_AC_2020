@@ -1,6 +1,5 @@
 package algos;
 
-import graphes.Display;
 import graphes.Edge;
 import graphes.Graph;
 
@@ -24,16 +23,13 @@ public class Kruskal implements Algorithme{
         UnionFind unionFind = new UnionFind(res.vertices());
         int from, to;
         for(Edge edge : edges){
-            Display display = new Display();
             from = edge.getFrom();
             to = edge.getTo();
-            display.setTitle("Edge : " + from + "->" + to);
             if(unionFind.find(from) != unionFind.find(to)){
                 res.addEdge(edge);
                 unionFind.union(to, from);
                 edge.setUsed(true);
             }
-            display.setImage(res.toImage());
         }
         return res;
     }

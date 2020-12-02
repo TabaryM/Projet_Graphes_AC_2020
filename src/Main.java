@@ -4,24 +4,45 @@ import graphes.Display;
 import graphes.Graph;
 
 import javax.swing.*;
-import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * @author Tabary
  */
 public class Main {
     public static void main(String[] args) {
-        Display d = new Display();
         Graph graph = Graph.example();
 
         Algorithme algorithme = new Kruskal();
+        HashMap<Graph, Integer> graphs = new HashMap<>();
+        ArrayList<Graph> graphList = new ArrayList<>();
+        ArrayList<Integer> cptGraph = new ArrayList<>();
 
-        Graph arbreCouvrant = algorithme.getArbreCouvrant(graph);
-        arbreCouvrant.setCoordinate(0, 100,100);
-        arbreCouvrant.setCoordinate(1, 300,300);
-        arbreCouvrant.setCoordinate(2, 300,100);
-        arbreCouvrant.setCoordinate(3, 100,300);
-        d.setImage(arbreCouvrant.toImage());
-        d.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        // TODO comprendre pourquoi deux graphs ne sont pas repérés comme égaux alors qu'ils ont les mêmes arrêtes
+        for (int i = 0; i < 100/*1000000*/; i++) {
+            Graph tmp = algorithme.getArbreCouvrant(graph);
+            if(graphList.contains(tmp)){
+                int indice = graphList.indexOf(tmp);
+                if(cptGraph.size() < indice){
+                    cptGraph.add(1);
+                } else {
+                    int val = cptGraph.get(indice);
+                    cptGraph.set(indice, val+1);
+                }
+            } else {
+                graphList.add(tmp);
+                cptGraph.add(1);
+            }
+
+        }
+
+        for(int i = 0; i < graphList.size(); i++){
+            Display display = new Display();
+            display.setTitle(cptGraph.get(i)+"");
+            display.setImage(graphList.get(i).toImage());
+            display.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        }
     }
 }

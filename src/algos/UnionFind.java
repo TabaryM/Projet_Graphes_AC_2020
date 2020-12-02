@@ -24,7 +24,6 @@ public class UnionFind {
         Arrays.fill(rang, 0);
         for(int i = 0; i < N; i++) modele[i] = i;
         for(int i = 0; i < N; i++) parents[i] = i;
-        //System.out.println(Arrays.toString(parents));
     }
 
     /**
@@ -50,7 +49,6 @@ public class UnionFind {
      * @param y second ensemble
      */
     public void union(int x, int y){
-        System.out.println("Union " + x + "->" + y);
         int racineX = find(x);
         int racineY = find(y);
         if(racineX != racineY){
@@ -63,7 +61,5 @@ public class UnionFind {
                 }
             }
         }
-        System.out.println(Arrays.toString(modele));
-        System.out.println(Arrays.toString(parents)+'\n');
     }
 }

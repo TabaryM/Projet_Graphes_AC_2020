@@ -206,20 +206,24 @@ public class Graph{
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 		Graph graph = (Graph) o;
-		return V == graph.V &&
-				E == graph.E &&
-				Arrays.equals(adj, graph.adj) &&
-				Arrays.equals(coordX, graph.coordX) &&
-				Arrays.equals(coordY, graph.coordY);
-	}
-
-	@Override
-	public int hashCode() {
-		int result = Objects.hash(V, E);
-		result = 31 * result + Arrays.hashCode(adj);
-		result = 31 * result + Arrays.hashCode(coordX);
-		result = 31 * result + Arrays.hashCode(coordY);
-		return result;
+		// TODO : gérer l'égalité entre deux tableaux de listes (inversion de deux tableau toussa toussa)
+		boolean res = true;
+		boolean tmpRes = false;
+		// parcourir tab1 et trouver chaque Obj de tab1 dans tab2
+		int i = 0, j=0;
+		// On vérifie que les tableaux de liste d'adjacences sont équivalents.
+		// Toutes liste dans un tableau doit être dans l'autre tableau
+		while(res && i < adj.length){
+			tmpRes |= adj[i].equals(graph.adj[j]); // Vrai si la liste adj[i] est dans graph.adj, faux sinon
+			j++;
+			if(j == graph.adj.length){
+				res = tmpRes;
+				tmpRes = false;
+				i++;
+				j = 0;
+			}
+		}
+		return res;
 	}
 
 	public int getCoordX(int i) {
