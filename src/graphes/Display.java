@@ -4,7 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Display extends JFrame {
-    private JLabel jlabel ;
+    private JLabel jlabelImage;
+    private JTextArea jlabelText;
     boolean visible;
 
     /**
@@ -13,9 +14,11 @@ public class Display extends JFrame {
     public  Display() {
         super("Image");       // Titre de la fenêtre
         setPreferredSize(new Dimension(400, 500));  // largeur, hauteur
-        jlabel = new JLabel();
+        jlabelImage = new JLabel();
+        jlabelText = new JTextArea();
         visible = false;
-        this.add(jlabel, BorderLayout.CENTER);
+        this.add(jlabelText, BorderLayout.NORTH);
+        this.add(jlabelImage, BorderLayout.CENTER);
         this.pack();
     }
 
@@ -24,7 +27,7 @@ public class Display extends JFrame {
             visible = true;
             this.setVisible(true);
 	    }
-	    jlabel.setIcon(new ImageIcon(blop));
+	    jlabelImage.setIcon(new ImageIcon(blop));
     }
 
     /**
@@ -32,6 +35,10 @@ public class Display extends JFrame {
      */
     public void close() {
         this.dispose();
+    }
+
+    public void setJlabelText(String text){
+        jlabelText.setText(text);
     }
 
 } 
