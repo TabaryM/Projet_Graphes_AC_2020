@@ -20,7 +20,7 @@ public class Main {
         ArrayList<Integer> cptGraph = new ArrayList<>();
 
         // TODO comprendre pourquoi deux graphs ne sont pas repérés comme égaux alors qu'ils ont les mêmes arrêtes
-        for (int i = 0; i < 100/*1000000*/; i++) {
+        for (int i = 0; i < 1000000; i++) {
             Graph tmp = algorithme.getArbreCouvrant(graph);
             if(graphList.contains(tmp)){
                 int indice = graphList.indexOf(tmp);

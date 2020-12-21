@@ -2,7 +2,7 @@ package graphes;
 
 import java.util.Objects;
 
-public class Edge {
+public class Edge implements Comparable{
     int from;
     int to;
     boolean used;
@@ -48,12 +48,13 @@ public class Edge {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Edge edge = (Edge) o;
-        return from == edge.from &&
-                to == edge.to;
+    public int compareTo(Object o) {
+        if(this.equals(o)) return 0;
+        Edge y = (Edge)o;
+        int res = this.from - y.from;
+        if(res == 0){
+            res = this.to - y.to;
+        }
+        return res;
     }
-
 }

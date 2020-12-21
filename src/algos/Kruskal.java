@@ -3,8 +3,8 @@ package algos;
 import graphes.Edge;
 import graphes.Graph;
 
-import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * @author Tabary
@@ -12,7 +12,7 @@ import java.util.Collections;
 public class Kruskal implements Algorithme{
     @Override
     public Graph getArbreCouvrant(Graph g) {
-        ArrayList<Edge> edges = g.edges();
+        List<Edge> edges = g.edges();
         Collections.shuffle(edges);
 
         Graph res = new Graph(g.vertices());
@@ -31,6 +31,7 @@ public class Kruskal implements Algorithme{
                 edge.setUsed(true);
             }
         }
+        res.sort();
         return res;
     }
 

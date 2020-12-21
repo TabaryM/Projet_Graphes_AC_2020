@@ -1,20 +1,18 @@
 package graphes;
 
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
+import java.util.*;
 import java.io.*;
-import javax.swing.*;
 import java.awt.*;
 import java.awt.image.*;
-import java.util.Arrays;
-import java.util.Objects;
+import java.util.List;
 
 public class Graph{
 	/**
 	 * Tableau de liste d'adjacences des sommets
 	 * Pour chaque sommet v on a une List d'arête qui y sont rattaché.
 	 */
-	private final ArrayList<Edge>[] adj;
+	private final List<Edge>[] adj;
 	/**
 	 * Tableau de coordonnées en x des sommets
 	 */
@@ -42,7 +40,7 @@ public class Graph{
 		this.E = 0;
 		adj = (ArrayList<Edge>[]) new ArrayList[N];
 		for (int v= 0; v < N; v++) {
-			adj[v] = new ArrayList<Edge>();
+			adj[v] = new ArrayList<>();
 		}
 		coordX = new int[N];
 		coordY = new int[N];
@@ -89,15 +87,15 @@ public class Graph{
 	 * @param v : le sommet qui nous interesse
 	 * @return  La liste des arêtes qui sont connectées à ce sommet
 	 */
-	public ArrayList<Edge> adj(int v){
-		return new ArrayList<Edge>(adj[v]);
+	public List<Edge> adj(int v){
+		return new ArrayList<>(adj[v]);
 	}
 
 	/**
 	 * Retourne la liste de toutes les arêtes du graphe
 	 * @return La liste de toutes les arêtes
 	 */
-	public ArrayList<Edge> edges(){
+	public List<Edge> edges(){
 		ArrayList<Edge> list = new ArrayList<Edge>();
 		for (int v = 0; v < V; v++) {
 			for (Edge e : adj(v)) {
@@ -201,36 +199,34 @@ public class Graph{
 		}
 	}
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-		Graph graph = (Graph) o;
-		// TODO : gérer l'égalité entre deux tableaux de listes (inversion de deux tableau toussa toussa)
-		boolean res = true;
-		boolean tmpRes = false;
-		// parcourir tab1 et trouver chaque Obj de tab1 dans tab2
-		int i = 0, j=0;
-		// On vérifie que les tableaux de liste d'adjacences sont équivalents.
-		// Toutes liste dans un tableau doit être dans l'autre tableau
-		while(res && i < adj.length){
-			tmpRes |= adj[i].equals(graph.adj[j]); // Vrai si la liste adj[i] est dans graph.adj, faux sinon
-			j++;
-			if(j == graph.adj.length){
-				res = tmpRes;
-				tmpRes = false;
-				i++;
-				j = 0;
-			}
-		}
-		return res;
-	}
-
 	public int getCoordX(int i) {
 		return coordX[i];
 	}
 
 	public int getCoordY(int i) {
 		return coordY[i];
+	}
+
+	public void sort(){
+		for(List<Edge> list : adj){
+			Collections.sort(list);
+		}
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Graph graph = (Graph) o;
+		return V == graph.V && E == graph.E && Arrays.equals(adj, graph.adj) && Arrays.equals(coordX, graph.coordX) && Arrays.equals(coordY, graph.coordY);
+	}
+
+	@Override
+	public int hashCode() {
+		int result = Objects.hash(V, E);
+		result = 31 * result + Arrays.hashCode(adj);
+		result = 31 * result + Arrays.hashCode(coordX);
+		result = 31 * result + Arrays.hashCode(coordY);
+		return result;
 	}
 }
