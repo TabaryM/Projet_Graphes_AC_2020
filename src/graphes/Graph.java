@@ -109,7 +109,7 @@ public class Graph{
 
 	/**
 	 * Retourne le graphe G1 donné sur le sujet
-	 * @return graphe d'exemple avec 7 sommets et 11 arêtes
+	 * @return graphe d'exemple avec 4 sommets et 5 arêtes
 	 */
 	public static Graph example(){
 		Graph g = new Graph(4);

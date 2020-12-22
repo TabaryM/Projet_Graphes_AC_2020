@@ -1,13 +1,16 @@
+\subsection{Déterminer par la méthode de votre choix tous les arbres couvrants du graphe G1 suivant}\label{subsec:Q1}
+
+Le nom des sommets de ce graphe ont été choisis en analysant la méthode statique Graph.example() afin d'avoir une cohérence entre les données manipulées par le programme et ce document.
 
 \begin{center}
     \begin{tikzpicture}
         % Les styles utilisé pour visualiser les salles
         \tikzstyle{salle}=[circle, draw]
 
-        \node[salle] (A) {A};
-        \node[salle, right=25mm of A] (B) {B};
-        \node[salle, below=25mm of A] (C) {C};
-        \node[salle, below=25mm of B] (D) {D};
+        \node[salle] (C) {3};
+        \node[salle, above=25mm of C] (A) {0};
+        \node[salle, right=25mm of C] (D) {1};
+        \node[salle, right=25mm of A] (B) {2};
 
         \draw (A) to (B);
         \draw (A) to (C);
@@ -21,17 +24,17 @@
 \end{center}
 
 \newpage
-\begin{multicols}{2}
+\begin{multicols}{0}
 
     \subsubsection{Arbre couvrant A}
     \begin{tikzpicture}
         % Les styles utilisé pour visualiser les salles
         \tikzstyle{salle}=[circle, draw]
 
-        \node[salle] (A) {A};
-        \node[salle, right=15mm of A] (B) {B};
-        \node[salle, below=15mm of A] (C) {C};
-        \node[salle, below=15mm of B] (D) {D};
+        \node[salle] (C) {3};
+        \node[salle, above=15mm of C] (A) {0};
+        \node[salle, right=15mm of C] (D) {1};
+        \node[salle, right=15mm of A] (B) {2};
 
         \draw (A) to (B);
         \draw (B) to (D);
@@ -43,10 +46,10 @@
         % Les styles utilisé pour visualiser les salles
         \tikzstyle{salle}=[circle, draw]
 
-        \node[salle] (A) {A};
-        \node[salle, right=15mm of A] (B) {B};
-        \node[salle, below=15mm of A] (C) {C};
-        \node[salle, below=15mm of B] (D) {D};
+        \node[salle] (C) {3};
+        \node[salle, above=15mm of C] (A) {0};
+        \node[salle, right=15mm of C] (D) {1};
+        \node[salle, right=15mm of A] (B) {2};
 
         \draw (A) to (B);
         \draw (B) to (D);
@@ -58,10 +61,10 @@
         % Les styles utilisé pour visualiser les salles
         \tikzstyle{salle}=[circle, draw]
 
-        \node[salle] (A) {A};
-        \node[salle, right=15mm of A] (B) {B};
-        \node[salle, below=15mm of A] (C) {C};
-        \node[salle, below=15mm of B] (D) {D};
+        \node[salle] (C) {3};
+        \node[salle, above=15mm of C] (A) {0};
+        \node[salle, right=15mm of C] (D) {1};
+        \node[salle, right=15mm of A] (B) {2};
 
         \draw (A) to (B);
         \draw (A) to (C);
@@ -73,10 +76,10 @@
         % Les styles utilisé pour visualiser les salles
         \tikzstyle{salle}=[circle, draw]
 
-        \node[salle] (A) {A};
-        \node[salle, right=15mm of A] (B) {B};
-        \node[salle, below=15mm of A] (C) {C};
-        \node[salle, below=15mm of B] (D) {D};
+        \node[salle] (C) {3};
+        \node[salle, above=15mm of C] (A) {0};
+        \node[salle, right=15mm of C] (D) {1};
+        \node[salle, right=15mm of A] (B) {2};
 
         \draw (A) to (C);
         \draw (C) to (D);
@@ -88,10 +91,10 @@
         % Les styles utilisé pour visualiser les salles
         \tikzstyle{salle}=[circle, draw]
 
-        \node[salle] (A) {A};
-        \node[salle, right=15mm of A] (B) {B};
-        \node[salle, below=15mm of A] (C) {C};
-        \node[salle, below=15mm of B] (D) {D};
+        \node[salle] (C) {3};
+        \node[salle, above=15mm of C] (A) {0};
+        \node[salle, right=15mm of C] (D) {1};
+        \node[salle, right=15mm of A] (B) {2};
 
         \draw (A) to (B);
         \draw (A) to (C);
@@ -103,10 +106,10 @@
         % Les styles utilisé pour visualiser les salles
         \tikzstyle{salle}=[circle, draw]
 
-        \node[salle] (A) {A};
-        \node[salle, right=15mm of A] (B) {B};
-        \node[salle, below=15mm of A] (C) {C};
-        \node[salle, below=15mm of B] (D) {D};
+        \node[salle] (C) {3};
+        \node[salle, above=15mm of C] (A) {0};
+        \node[salle, right=15mm of C] (D) {1};
+        \node[salle, right=15mm of A] (B) {2};
 
         \draw (A) to (C);
         \draw (A) to (D);
@@ -118,10 +121,10 @@
         % Les styles utilisé pour visualiser les salles
         \tikzstyle{salle}=[circle, draw]
 
-        \node[salle] (A) {A};
-        \node[salle, right=15mm of A] (B) {B};
-        \node[salle, below=15mm of A] (C) {C};
-        \node[salle, below=15mm of B] (D) {D};
+        \node[salle] (C) {3};
+        \node[salle, above=15mm of C] (A) {0};
+        \node[salle, right=15mm of C] (D) {1};
+        \node[salle, right=15mm of A] (B) {2};
 
         \draw (D) to (B);
         \draw (D) to (C);
@@ -133,10 +136,10 @@
         % Les styles utilisé pour visualiser les salles
         \tikzstyle{salle}=[circle, draw]
 
-        \node[salle] (A) {A};
-        \node[salle, right=15mm of A] (B) {B};
-        \node[salle, below=15mm of A] (C) {C};
-        \node[salle, below=15mm of B] (D) {D};
+        \node[salle] (C) {3};
+        \node[salle, above=15mm of C] (A) {0};
+        \node[salle, right=15mm of C] (D) {1};
+        \node[salle, right=15mm of A] (B) {2};
 
         \draw (A) to (B);
         \draw (A) to (D);

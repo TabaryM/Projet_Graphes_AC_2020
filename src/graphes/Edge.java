@@ -12,7 +12,7 @@ public class Edge implements Comparable{
      * @param x un sommet
      * @param y un autre
      */
-    Edge(int x, int y){
+    public Edge(int x, int y){
         this.from = x;
         this.to = y;
         this.used = false;
@@ -56,5 +56,23 @@ public class Edge implements Comparable{
             res = this.to - y.to;
         }
         return res;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Edge edge = (Edge) o;
+        return (from == edge.from && to == edge.to) || (from == edge.to && to == edge.from);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(from, to);
+    }
+
+    @Override
+    public String toString() {
+        return "("+from+", "+to+")";
     }
 }
