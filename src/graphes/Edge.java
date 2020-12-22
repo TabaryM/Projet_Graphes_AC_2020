@@ -1,11 +1,30 @@
 package graphes;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Edge implements Comparable{
     int from;
     int to;
     boolean used;
+
+    public static List<Integer> sommetFromArete(List<Edge> aretes){
+        List<Integer> res = new ArrayList<>();
+        for(Edge edge : aretes) {
+            res.add(edge.getFrom());
+            res.add(edge.getTo());
+        }
+        return res;
+    }
+
+    public static List<Edge> areteFromSommet(List<Integer> sommets){
+        List<Edge> res = new ArrayList<>();
+        for(int i = 1; i < sommets.size(); i = i + 2){
+            res.add(new Edge(sommets.get(i-1), sommets.get(i)));
+        }
+        return res;
+    }
 
     /**
      * Créer une arête entre les sommets x et y.

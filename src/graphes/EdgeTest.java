@@ -2,6 +2,9 @@ package graphes;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class EdgeTest {
@@ -121,5 +124,60 @@ class EdgeTest {
         if(xSupY == 0){
             assertEquals(ySupZ, xSupZ);
         }
+    }
+
+    @Test
+    void equalsRight(){
+        Edge edge1 = new Edge(1, 2);
+        Edge edge2 = new Edge(2, 1);
+        assertEquals(edge2, edge1);
+    }
+
+    @Test
+    void sommetFromArete(){
+        Edge edge1 = new Edge(1, 2);
+        Edge edge2 = new Edge(4, 6);
+        Edge edge3 = new Edge(2, 3);
+        Edge edge4 = new Edge(1, 6);
+        List<Edge> edges = new ArrayList<>();
+        edges.add(edge1);
+        edges.add(edge2);
+        edges.add(edge3);
+        edges.add(edge4);
+
+        List<Integer> sommets = new ArrayList<>();
+        sommets.add(1);
+        sommets.add(2);
+        sommets.add(4);
+        sommets.add(6);
+        sommets.add(2);
+        sommets.add(3);
+        sommets.add(1);
+        sommets.add(6);
+        assertEquals(sommets, Edge.sommetFromArete(edges));
+    }
+
+    @Test
+    void areteFromSommet(){
+        Edge edge1 = new Edge(1, 2);
+        Edge edge2 = new Edge(4, 6);
+        Edge edge3 = new Edge(2, 3);
+        Edge edge4 = new Edge(1, 6);
+        List<Edge> edges = new ArrayList<>();
+        edges.add(edge1);
+        edges.add(edge2);
+        edges.add(edge3);
+        edges.add(edge4);
+
+        List<Integer> sommets = new ArrayList<>();
+        sommets.add(1);
+        sommets.add(2);
+        sommets.add(4);
+        sommets.add(6);
+        sommets.add(2);
+        sommets.add(3);
+        sommets.add(1);
+        sommets.add(6);
+        assertEquals(edges, Edge.areteFromSommet(sommets));
     }
 }
