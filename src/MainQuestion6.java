@@ -22,7 +22,7 @@ public class MainQuestion6 {
         int val;
 
         // On créer 1 million d'arbres couvrant du graphe d'exemple
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 10; i++) {
             Graph tmp = algorithme.getArbreCouvrant(graph);
             // Si on a déjà créer cet arbre couvrant, on incrémente le compteur de cet arbre
             if(graphList.contains(tmp)){

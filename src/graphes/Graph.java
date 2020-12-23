@@ -209,7 +209,7 @@ public class Graph{
 
 	public void sort(){
 		for(List<Edge> list : adj){
-			Collections.sort(list);
+			list.sort(null);
 		}
 	}
 

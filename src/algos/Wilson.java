@@ -35,7 +35,6 @@ public class Wilson implements Algorithme{
 
         int pointDeDepart ;
         List<Edge> marche;
-        List<Edge> nouveauxSommets;
         int from, to;
         while (sommetsVisites.size() < res.vertices()){
             // On trouve un point de départ utilisable
@@ -46,17 +45,19 @@ public class Wilson implements Algorithme{
             marche = marcheAleatoire(pointDeDepart);
 
             // On nettoie la marche des cycles
-            nouveauxSommets = nettoieCycles(marche);
+            marche.sort(null);
+            System.out.println("marche :  "+marche);
+            marche = nettoieCycles(marche);
             // On ajoute les sommets à la liste des sommets visités
-            for(Edge edge : nouveauxSommets){
+            for(Edge edge : marche){
                 from = edge.getFrom();
                 to = edge.getTo();
                 if(!sommetsVisites.contains(from)) sommetsVisites.add(from);
                 if(!sommetsVisites.contains(to)) sommetsVisites.add(to);
             }
             // On ajoute les arêtes à l'arbre couvrant
-            for(Edge edge : nouveauxSommets){
-                if(!res.edges().contains(edge)) {
+            for(Edge edge : marche){
+                if(!res.edges().contains(edge) && g.edges().contains(edge)) {
                     res.addEdge(edge);
                     edge.setUsed(true);
                 }
@@ -95,7 +96,6 @@ public class Wilson implements Algorithme{
                 indice = sommetsRepetes.indexOf(to);
                 cptSommetsRepetes.set(indice, cptSommetsRepetes.get(indice)+1);
             }
-
         }
 
         // On trouve le premier sommet parcouru deux fois par la marche
@@ -120,9 +120,12 @@ public class Wilson implements Algorithme{
         for(int i = 0; i < nbElemASuppr; i++){
             marcheInteger.remove(premierIndice);
         }
+        System.out.println("sommets : "+marcheInteger);
 
         // On retire les arêtes partant du premier sommet répété
-        return areteFromSommet(marcheInteger);
+        List<Edge> edges = areteFromSommet(marcheInteger);
+        System.out.println("arêtes :  "+edges+"\n");
+        return edges;
     }
 
     private List<Edge> marcheAleatoire(Integer pointDeDepart){

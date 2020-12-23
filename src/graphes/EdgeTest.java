@@ -1,5 +1,6 @@
 package graphes;
 
+import exception.EdgeException;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -135,34 +136,28 @@ class EdgeTest {
 
     @Test
     void sommetFromArete(){
-        Edge edge1 = new Edge(1, 2);
-        Edge edge2 = new Edge(4, 6);
-        Edge edge3 = new Edge(2, 3);
-        Edge edge4 = new Edge(1, 6);
+        Edge edge1 = new Edge(0, 2);
+        Edge edge2 = new Edge(1, 2);
+        Edge edge3 = new Edge(1, 3);
         List<Edge> edges = new ArrayList<>();
         edges.add(edge1);
         edges.add(edge2);
         edges.add(edge3);
-        edges.add(edge4);
 
         List<Integer> sommets = new ArrayList<>();
+        sommets.add(0);
+        sommets.add(2);
         sommets.add(1);
-        sommets.add(2);
-        sommets.add(4);
-        sommets.add(6);
-        sommets.add(2);
         sommets.add(3);
-        sommets.add(1);
-        sommets.add(6);
         assertEquals(sommets, Edge.sommetFromArete(edges));
     }
 
     @Test
     void areteFromSommet(){
         Edge edge1 = new Edge(1, 2);
-        Edge edge2 = new Edge(4, 6);
-        Edge edge3 = new Edge(2, 3);
-        Edge edge4 = new Edge(1, 6);
+        Edge edge2 = new Edge(2, 3);
+        Edge edge3 = new Edge(3, 4);
+        Edge edge4 = new Edge(4, 6);
         List<Edge> edges = new ArrayList<>();
         edges.add(edge1);
         edges.add(edge2);
@@ -172,12 +167,22 @@ class EdgeTest {
         List<Integer> sommets = new ArrayList<>();
         sommets.add(1);
         sommets.add(2);
+        sommets.add(3);
         sommets.add(4);
         sommets.add(6);
-        sommets.add(2);
-        sommets.add(3);
-        sommets.add(1);
-        sommets.add(6);
         assertEquals(edges, Edge.areteFromSommet(sommets));
+    }
+
+    @Test
+    void otherRight(){
+        Edge edge1 = new Edge(1, 2);
+        assertEquals(1, edge1.other(2));
+        assertEquals(2, edge1.other(1));
+    }
+
+    @Test
+    void otherError(){
+        Edge edge1 = new Edge(1, 2);
+        assertThrows(EdgeException.class, () -> edge1.other(3));
     }
 }
