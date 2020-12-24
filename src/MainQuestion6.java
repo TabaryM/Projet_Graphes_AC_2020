@@ -1,4 +1,3 @@
-import algos.AldousBroder;
 import algos.Algorithme;
 import algos.Wilson;
 import exception.EdgeException;
@@ -15,15 +14,12 @@ import java.util.Random;
 public class MainQuestion6 {
     public static void main(String[] args) throws EdgeException {
         Graph graph = Graph.example();
-        long time;
-        time = System.currentTimeMillis();
-        time = 1608817056497L;
-        Algorithme algorithme = new Wilson(new Random(time));
+
+        Algorithme algorithme = new Wilson(new Random(System.currentTimeMillis()));
         ArrayList<Graph> graphList = new ArrayList<>();
         ArrayList<Integer> cptGraph = new ArrayList<>();
         int indice;
         int val;
-        System.out.println(time);
 
         // On créer 1 million d'arbres couvrant du graphe d'exemple
         for (int i = 0; i < 1000000; i++) {

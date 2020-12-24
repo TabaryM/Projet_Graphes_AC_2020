@@ -17,37 +17,10 @@ public class Edge implements Comparable{
             throw new EdgeException("Nombre d'arête non propice à la décomposition en sommets.\nAttendu : >= 1");
         }
         List<Integer> res = new ArrayList<>();
-        Edge arete, suc;
-        int sommetprec;
-        if(aretes.size() == 1){ // Cas simple où il n'y a qu'une arête
-            arete = aretes.get(0);
-            res.add(arete.from);
-            res.add(arete.to);
-        } else { // Cas plus complexe où il y a au moins 2 arêtes
-            arete = aretes.get(0);
-            suc = aretes.get(1);
-            // Cas initial
-            if(arete.from == suc.from || arete.from == suc.to){
-                res.add(arete.to);
-                res.add(arete.from);
-            } else if(arete.to == suc.to || arete.to == suc.from){
-                res.add(arete.from);
-                res.add(arete.to);
-            } else {
-                throw new EdgeException("Chemin incorrect, il faut donner les arêtes dans l'ordre du chemin");
-            }
-
-            System.out.println(aretes);
-            // Cas répétitif
-            for(int i = 2; i < aretes.size()+1; i++){
-                sommetprec = res.get(i-1);
-                arete = aretes.get(i-1);
-                System.out.println("arete"+arete);
-                System.out.println("sommets : "+res);
-                res.add(arete.other(sommetprec));
-            }
-            res.add(aretes.get(aretes.size()-1).other(res.get(res.size()-1)));
+        for(Edge edge : aretes){
+            res.add(edge.from);
         }
+        res.add(aretes.get(aretes.size()-1).getTo());
         return res;
     }
 
@@ -136,5 +109,14 @@ public class Edge implements Comparable{
     @Override
     public String toString() {
         return "("+from+", "+to+")";
+    }
+
+    public void sort() {
+        int tmp;
+        if(to < from){
+            tmp = from;
+            from = to;
+            to = tmp;
+        }
     }
 }

@@ -210,6 +210,9 @@ public class Graph{
 
 	public void sort(){
 		for(List<Edge> list : adj){
+			for(Edge edge : list){
+				edge.sort();
+			}
 			list.sort(null);
 		}
 	}

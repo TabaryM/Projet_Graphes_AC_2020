@@ -43,12 +43,11 @@ public class Wilson implements Algorithme{
                 pointDeDepart = random.nextInt(res.vertices());
             } while (sommetsVisites.contains(pointDeDepart));
             // On fait une marche aléatoire depuis ce point de départ jusqu'à un des sommets de l'arbre couvrant (contenus dans sommetVisites).
-            //System.out.println("départ : "+pointDeDepart+"\tsommets connus : "+sommetsVisites);
             marche = marcheAleatoire(pointDeDepart);
 
             // On nettoie la marche des cycles
-            //System.out.println("marche :  "+marche);
             marche = nettoieCycles(marche);
+
             // On ajoute les sommets à la liste des sommets visités
             for(Edge edge : marche){
                 from = edge.getFrom();
@@ -56,9 +55,10 @@ public class Wilson implements Algorithme{
                 if(!sommetsVisites.contains(from)) sommetsVisites.add(from);
                 if(!sommetsVisites.contains(to)) sommetsVisites.add(to);
             }
+
             // On ajoute les arêtes à l'arbre couvrant
             for(Edge edge : marche){
-                if(!res.edges().contains(edge) && g.edges().contains(edge)) {
+                if(!res.edges().contains(edge)) {
                     res.addEdge(edge);
                     edge.setUsed(true);
                 }
@@ -73,61 +73,44 @@ public class Wilson implements Algorithme{
         List<Integer> sommetsRepetes = new ArrayList<>();
         List<Integer> cptSommetsRepetes = new ArrayList<>();
 
+        ArrayList<Integer> marcheInteger = (ArrayList<Integer>) getCheminAsSommets(marche);
+        int indice;
         // On compte le nombre d'apparition de chaque sommet
-        int from, to, indice;
-        for (Edge edge : marche){
-            from = edge.getFrom();
-            to = edge.getTo();
-
-            // On ajoute les sommets si on ne les as jamais vu
-            if(!sommetsRepetes.contains(from)){
-                sommetsRepetes.add(from);
+        for(Integer sommet : marcheInteger){
+            if(!sommetsRepetes.contains(sommet)){
+                sommetsRepetes.add(sommet);
                 cptSommetsRepetes.add(1);
             } else {
-                // Si on a déjà vu le sommet, on incrémente le compteur
-                indice = sommetsRepetes.indexOf(from);
-                cptSommetsRepetes.set(indice, cptSommetsRepetes.get(indice)+1);
-            }
-
-            // Idem qu'avant mais en regardant l'autre partie de l'arête
-            if(!sommetsRepetes.contains(to)){
-                sommetsRepetes.add(to);
-                cptSommetsRepetes.add(1);
-            } else {
-                indice = sommetsRepetes.indexOf(to);
+                indice = sommetsRepetes.indexOf(sommet);
                 cptSommetsRepetes.set(indice, cptSommetsRepetes.get(indice)+1);
             }
         }
 
-        // On trouve le premier sommet parcouru deux fois par la marche
-        int premierSommetRepete = 0;
+        // On trouve le sommet avec le plus d'apparition
+        int indicePremierSommetRepete = 0;
         int nbRepetition = 0;
-        for(Integer cpt : cptSommetsRepetes){
-            if(cpt > nbRepetition) {
-                nbRepetition = cpt;
-                premierSommetRepete = sommetsRepetes.get(cptSommetsRepetes.indexOf(cpt));
-            }
+        while(nbRepetition < 1 && indicePremierSommetRepete < cptSommetsRepetes.size()){
+            nbRepetition = cptSommetsRepetes.get(indicePremierSommetRepete++);
         }
+        indicePremierSommetRepete--;
 
         // S'il n'y a pas de répétition, on n'a pas besoin de nettoyer plus
         if(nbRepetition == 1) return marche;
 
         // On trouve le premier et dernier indice du sommet étant apparu plus d'une fois
-        List<Integer> marcheInteger = getCheminAsSommets(marche);
+        int premierSommetRepete = sommetsRepetes.get(indicePremierSommetRepete);
 
-        Integer premierIndice = marcheInteger.indexOf(premierSommetRepete);
-        int nbElemASuppr = marcheInteger.lastIndexOf(premierSommetRepete) - premierIndice;
+        // On trouve le permier et le dernier indice du premier sommet répété
+        int premierIndicePremierSommetRepete = marcheInteger.indexOf(premierSommetRepete);
+        int dernierIndicePremierSommetRepete = marcheInteger.lastIndexOf(premierSommetRepete);
 
-        //before : [1, 0, 2, 1, 3]
-        for(int i = 0; i < nbElemASuppr; i++){
-            marcheInteger.remove(premierIndice);
+        // On supprime tous les éléments entre ces deux indices (premier inclus, dernier exclus)
+        // du genre : marcheInteger.removeRange(premierIndicePremierSommetRepete, dernierIndicePremierSommetRepete);
+        if (dernierIndicePremierSommetRepete > premierIndicePremierSommetRepete) {
+            marcheInteger.subList(premierIndicePremierSommetRepete, dernierIndicePremierSommetRepete).clear();
         }
-        //expected : [1, 3]
-        //System.out.println("sommets : "+marcheInteger);
 
-        // On retire les arêtes partant du premier sommet répété
         List<Edge> edges = getCheminAsArete(marcheInteger);
-        //System.out.println("arêtes :  "+edges+"\n");
         return edges;
     }
 
