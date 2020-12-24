@@ -1,5 +1,6 @@
 package algos;
 
+import exception.EdgeException;
 import graphes.Edge;
 import graphes.Graph;
 
@@ -7,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import static graphes.Edge.areteFromSommet;
-import static graphes.Edge.sommetFromArete;
+import static graphes.Edge.getCheminAsArete;
+import static graphes.Edge.getCheminAsSommets;
 
 /**
  * @author Tabary
@@ -23,7 +24,7 @@ public class Wilson implements Algorithme{
     }
 
     @Override
-    public Graph getArbreCouvrant(Graph g) {
+    public Graph getArbreCouvrant(Graph g) throws EdgeException {
         this.g = g;
         // On copie les sommets du graphe dans l'arbre couvrant
         Graph res = new Graph(g.vertices());
@@ -42,10 +43,10 @@ public class Wilson implements Algorithme{
                 pointDeDepart = random.nextInt(res.vertices());
             } while (sommetsVisites.contains(pointDeDepart));
             // On fait une marche aléatoire depuis ce point de départ jusqu'à un des sommets de l'arbre couvrant (contenus dans sommetVisites).
+            System.out.println("départ : "+pointDeDepart+"\tsommets connus : "+sommetsVisites);
             marche = marcheAleatoire(pointDeDepart);
 
             // On nettoie la marche des cycles
-            marche.sort(null);
             System.out.println("marche :  "+marche);
             marche = nettoieCycles(marche);
             // On ajoute les sommets à la liste des sommets visités
@@ -68,7 +69,7 @@ public class Wilson implements Algorithme{
         return res;
     }
 
-    private List<Edge> nettoieCycles(List<Edge> marche) {
+    private List<Edge> nettoieCycles(List<Edge> marche) throws EdgeException {
         List<Integer> sommetsRepetes = new ArrayList<>();
         List<Integer> cptSommetsRepetes = new ArrayList<>();
 
@@ -112,18 +113,20 @@ public class Wilson implements Algorithme{
         if(nbRepetition == 1) return marche;
 
         // On trouve le premier et dernier indice du sommet étant apparu plus d'une fois
-        List<Integer> marcheInteger = sommetFromArete(marche);
+        List<Integer> marcheInteger = getCheminAsSommets(marche);
 
         Integer premierIndice = marcheInteger.indexOf(premierSommetRepete);
         int nbElemASuppr = marcheInteger.lastIndexOf(premierSommetRepete) - premierIndice;
 
+        //before : [1, 0, 2, 1, 3]
         for(int i = 0; i < nbElemASuppr; i++){
             marcheInteger.remove(premierIndice);
         }
+        //expected : [1, 3]
         System.out.println("sommets : "+marcheInteger);
 
         // On retire les arêtes partant du premier sommet répété
-        List<Edge> edges = areteFromSommet(marcheInteger);
+        List<Edge> edges = getCheminAsArete(marcheInteger);
         System.out.println("arêtes :  "+edges+"\n");
         return edges;
     }
@@ -150,9 +153,8 @@ public class Wilson implements Algorithme{
                 // Soit elle a le sommet courant pour destination
                 sommetCourant = edge.getFrom();
             }
-            if(!marche.contains(edge)) {
-                marche.add(edge);
-            }
+            marche.add(edge);
+            System.out.println("origine : "+sommetDOrigine+"\tmarche : "+marche);
 
             // On vérifie si on doit s'arrêter
             for(Integer sommet : sommetsVisites) stop |= contientSommet(marche, sommet);

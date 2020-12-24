@@ -1,6 +1,7 @@
 import algos.AldousBroder;
 import algos.Algorithme;
 import algos.Wilson;
+import exception.EdgeException;
 import graphes.Display;
 import graphes.Graph;
 
@@ -12,7 +13,7 @@ import java.util.Random;
  * @author Tabary
  */
 public class MainQuestion6 {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws EdgeException {
         Graph graph = Graph.example();
 
         Algorithme algorithme = new Wilson(new Random(System.currentTimeMillis()));
@@ -23,6 +24,7 @@ public class MainQuestion6 {
 
         // On créer 1 million d'arbres couvrant du graphe d'exemple
         for (int i = 0; i < 10; i++) {
+            System.out.println("==================NOUVEAU GRAPHE==================");
             Graph tmp = algorithme.getArbreCouvrant(graph);
             // Si on a déjà créer cet arbre couvrant, on incrémente le compteur de cet arbre
             if(graphList.contains(tmp)){

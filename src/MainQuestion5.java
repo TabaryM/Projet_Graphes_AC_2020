@@ -1,5 +1,6 @@
 import algos.AldousBroder;
 import algos.Algorithme;
+import exception.EdgeException;
 import graphes.Display;
 import graphes.Graph;
 
@@ -11,7 +12,7 @@ import java.util.Random;
  * @author Tabary
  */
 public class MainQuestion5 {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws EdgeException {
         Graph graph = Graph.example();
 
         Algorithme algorithme = new AldousBroder(new Random(System.currentTimeMillis()));

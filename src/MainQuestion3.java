@@ -1,5 +1,6 @@
 import algos.Algorithme;
 import algos.Kruskal;
+import exception.EdgeException;
 import graphes.Display;
 import graphes.Graph;
 
@@ -11,7 +12,7 @@ import java.util.HashMap;
  * @author Tabary
  */
 public class MainQuestion3 {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws EdgeException {
         Graph graph = Graph.example();
 
         Algorithme algorithme = new Kruskal();

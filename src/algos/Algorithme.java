@@ -1,5 +1,6 @@
 package algos;
 
+import exception.EdgeException;
 import graphes.Graph;
 
 /**
@@ -11,5 +12,5 @@ public interface Algorithme {
      * @param g le graphe dont on veut un arbre couvrant.
      * @return Graph : un arbre couvrant de g.
      */
-    Graph getArbreCouvrant(Graph g);
+    Graph getArbreCouvrant(Graph g) throws EdgeException;
 }

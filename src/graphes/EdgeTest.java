@@ -135,7 +135,7 @@ class EdgeTest {
     }
 
     @Test
-    void sommetFromArete(){
+    void getCheminAsSommetsUnordered() throws EdgeException {
         Edge edge1 = new Edge(0, 2);
         Edge edge2 = new Edge(1, 2);
         Edge edge3 = new Edge(1, 3);
@@ -149,11 +149,54 @@ class EdgeTest {
         sommets.add(2);
         sommets.add(1);
         sommets.add(3);
-        assertEquals(sommets, Edge.sommetFromArete(edges));
+        assertEquals(sommets, Edge.getCheminAsSommets(edges));
     }
 
     @Test
-    void areteFromSommet(){
+    void getCheminAsSommetsOrdered() throws EdgeException {
+        Edge edge1 = new Edge(0, 2);
+        Edge edge2 = new Edge(2, 1);
+        Edge edge3 = new Edge(1, 3);
+        List<Edge> edges = new ArrayList<>();
+        edges.add(edge1);
+        edges.add(edge2);
+        edges.add(edge3);
+
+        List<Integer> sommets = new ArrayList<>();
+        sommets.add(0);
+        sommets.add(2);
+        sommets.add(1);
+        sommets.add(3);
+        assertEquals(sommets, Edge.getCheminAsSommets(edges));
+    }
+
+    @Test
+    void getCheminAsSommetsWierd() throws EdgeException {
+        Edge edge1 = new Edge(0, 1);
+        Edge edge2 = new Edge(0, 2);
+        Edge edge3 = new Edge(1, 2);
+        Edge edge4 = new Edge(1, 3);
+        List<Edge> edges = new ArrayList<>();
+        edges.add(edge1);
+        edges.add(edge2);
+        edges.add(edge3);
+        edges.add(edge4);
+
+        List<Integer> sommets = new ArrayList<>();
+        sommets.add(1);
+        sommets.add(0);
+        sommets.add(2);
+        sommets.add(1);
+        sommets.add(3);
+        assertEquals(sommets, Edge.getCheminAsSommets(edges));
+    }
+    /*
+marche :  [(0, 1), (0, 2), (1, 2), (1, 3)]
+sommets : [1, 2, 1, 3]
+     */
+
+    @Test
+    void getCheminAsArete() throws EdgeException {
         Edge edge1 = new Edge(1, 2);
         Edge edge2 = new Edge(2, 3);
         Edge edge3 = new Edge(3, 4);
@@ -170,11 +213,11 @@ class EdgeTest {
         sommets.add(3);
         sommets.add(4);
         sommets.add(6);
-        assertEquals(edges, Edge.areteFromSommet(sommets));
+        assertEquals(edges, Edge.getCheminAsArete(sommets));
     }
 
     @Test
-    void otherRight(){
+    void otherRight() throws EdgeException {
         Edge edge1 = new Edge(1, 2);
         assertEquals(1, edge1.other(2));
         assertEquals(2, edge1.other(1));

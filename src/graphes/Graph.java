@@ -186,9 +186,9 @@ public class Graph{
 
 	public void writeFile(String s) {
 		// Visualisable sur le site https://dreampuf.github.io/GraphvizOnline/
-		try {
+/*		try {
 			PrintWriter writer = new PrintWriter(s, StandardCharsets.UTF_8);
-			writer.println("digraph G{");
+					writer.println("digraph G{");
 			for (Edge e: edges()){
 				writer.println(e.from + "->" + e.to+";");
 			}
@@ -196,7 +196,7 @@ public class Graph{
 			writer.close();
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
+		}*/
 	}
 
 	public int getCoordX(int i) {

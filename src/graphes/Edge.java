@@ -12,30 +12,41 @@ public class Edge implements Comparable{
     int to;
     boolean used;
 
-    public static List<Integer> sommetFromArete(List<Edge> aretes){
+    public static List<Integer> getCheminAsSommets(List<Edge> aretes) throws EdgeException {
         if(aretes.size() < 1) {
             throw new EdgeException("Nombre d'arête non propice à la décomposition en sommets.\nAttendu : >= 1");
         }
         List<Integer> res = new ArrayList<>();
-        Edge arete;
+        Edge arete, suc;
+        int sommetprec;
         if(aretes.size() == 1){ // Cas simple où il n'y a qu'une arête
             arete = aretes.get(0);
             res.add(arete.from);
             res.add(arete.to);
         } else { // Cas plus complexe où il y a au moins 2 arêtes
-/*
-            res.add(aretes.get(0).getFrom());
-            int sommet;
-            for (int i = 0; i < aretes.size(); i++) {
-                arete = aretes.get(i);
-                res.add(arete.getTo());
+            arete = aretes.get(0);
+            suc = aretes.get(1);
+            // Cas initial
+            if(arete.from == suc.from || arete.from == suc.to){
+                res.add(arete.to);
+                res.add(arete.from);
+            } else if(arete.to == suc.to || arete.to == suc.from){
+                res.add(arete.from);
+                res.add(arete.to);
+            } else {
+                throw new EdgeException("Chemin incorrect, il faut donner les arêtes dans l'ordre du chemin");
             }
-*/
+
+            // Cas répétitif
+            for(int i = 2; i < aretes.size()+1; i++){
+                arete = aretes.get(i-1);
+                res.add(arete.other(res.get(i-1)));
+            }
         }
         return res;
     }
 
-    public static List<Edge> areteFromSommet(List<Integer> sommets){
+    public static List<Edge> getCheminAsArete(List<Integer> sommets) throws EdgeException {
         if(sommets.size() < 2) {
             throw new EdgeException("Nombre de sommets non propice à la création d'arêtes.\nAttendu : >= 2");
         }
@@ -66,9 +77,9 @@ public class Edge implements Comparable{
      * @return le sommet inconnu
      * @throws EdgeException si le sommet n'est pas reconnu comme un des deux sommets de l'arête
      */
-    final int other(int v){
+    final int other(int v) throws EdgeException {
         if(v != from && v != to){
-            throw new EdgeException("Sommet non reconnu");
+            throw new EdgeException("Sommet non reconnu (demandé : "+v+"; pour l'arete : "+this);
         }
         if (this.from == v) {
             return this.to;

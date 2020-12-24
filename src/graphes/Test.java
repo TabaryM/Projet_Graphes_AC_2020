@@ -17,6 +17,7 @@ public class Test{
     public static void printLaby(Graph G, int size, String file){
 		/* suppose que G est une grille de taille size x size et
 			   crée un .tex qui contient le labyrinthe correspondant */
+		/*
 		try {
 			PrintWriter writer = new PrintWriter(file, StandardCharsets.UTF_8);
 			writer.println("\\documentclass{article}\\usepackage{tikz}\\begin{document}");
@@ -37,7 +38,7 @@ public class Test{
 				}
 			}
 
-			/* bord */
+			*//* bord *//*
 			for (int i = 0; i < size; i++) {
 					writer.println(String.format(Locale.US, "\\begin{scope}[xshift=%dcm, yshift=%dcm]", i , 0));
 					writer.println("\\draw(0.4,0.1) -- (0.6, 0.1);");
@@ -66,7 +67,7 @@ public class Test{
 				int j = e.from / size;
 				writer.println(String.format(Locale.US, "\\begin{scope}[xshift=%dcm, yshift=%dcm]", i , j));
 				if (e.to == e.from + size) {
-					/* arête verticale */
+					*//* arête verticale *//*
 					if (!e.used) {
 						writer.println("\\draw (0.4,0.9) -- (0.6,0.9);");
 						writer.println("\\draw (0.4,1.1) -- (0.6,1.1);");
@@ -76,7 +77,7 @@ public class Test{
 					}
 				}
 				else{
-					/* arête horizontale */
+					*//* arête horizontale *//*
 					if (!e.used) {
 						writer.println("\\draw (0.9,0.4) -- (0.9,0.6);");
 						writer.println("\\draw (1.1,0.4) -- (1.1,0.6);");
@@ -94,6 +95,7 @@ public class Test{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		*/
     }
     
     public static void main(String[] args) {
