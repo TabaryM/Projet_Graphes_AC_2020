@@ -80,6 +80,7 @@ public class Graph{
 		int w = e.to;
 		adj[v].add(e);
 		adj[w].add(e);
+		E++;
 	}
 
 	/**

@@ -43,11 +43,11 @@ public class Wilson implements Algorithme{
                 pointDeDepart = random.nextInt(res.vertices());
             } while (sommetsVisites.contains(pointDeDepart));
             // On fait une marche aléatoire depuis ce point de départ jusqu'à un des sommets de l'arbre couvrant (contenus dans sommetVisites).
-            System.out.println("départ : "+pointDeDepart+"\tsommets connus : "+sommetsVisites);
+            //System.out.println("départ : "+pointDeDepart+"\tsommets connus : "+sommetsVisites);
             marche = marcheAleatoire(pointDeDepart);
 
             // On nettoie la marche des cycles
-            System.out.println("marche :  "+marche);
+            //System.out.println("marche :  "+marche);
             marche = nettoieCycles(marche);
             // On ajoute les sommets à la liste des sommets visités
             for(Edge edge : marche){
@@ -123,11 +123,11 @@ public class Wilson implements Algorithme{
             marcheInteger.remove(premierIndice);
         }
         //expected : [1, 3]
-        System.out.println("sommets : "+marcheInteger);
+        //System.out.println("sommets : "+marcheInteger);
 
         // On retire les arêtes partant du premier sommet répété
         List<Edge> edges = getCheminAsArete(marcheInteger);
-        System.out.println("arêtes :  "+edges+"\n");
+        //System.out.println("arêtes :  "+edges+"\n");
         return edges;
     }
 
@@ -136,7 +136,7 @@ public class Wilson implements Algorithme{
         boolean stop = false;
 
         List<Edge> adj;
-        Edge edge;
+        Edge edge, added;
 
         int sommetCourant = pointDeDepart, sommetDOrigine;
         //sommetCourant = random.nextInt(g.vertices());
@@ -153,8 +153,13 @@ public class Wilson implements Algorithme{
                 // Soit elle a le sommet courant pour destination
                 sommetCourant = edge.getFrom();
             }
-            marche.add(edge);
-            System.out.println("origine : "+sommetDOrigine+"\tmarche : "+marche);
+            try {
+                added = new Edge(edge.other(sommetCourant), sommetCourant);
+                marche.add(added);
+            } catch (EdgeException e) {
+                e.printStackTrace();
+            }
+            //System.out.println("origine : "+sommetDOrigine+"\tchemin : "+marche);
 
             // On vérifie si on doit s'arrêter
             for(Integer sommet : sommetsVisites) stop |= contientSommet(marche, sommet);

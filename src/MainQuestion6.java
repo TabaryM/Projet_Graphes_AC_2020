@@ -15,16 +15,18 @@ import java.util.Random;
 public class MainQuestion6 {
     public static void main(String[] args) throws EdgeException {
         Graph graph = Graph.example();
-
-        Algorithme algorithme = new Wilson(new Random(System.currentTimeMillis()));
+        long time;
+        time = System.currentTimeMillis();
+        time = 1608817056497L;
+        Algorithme algorithme = new Wilson(new Random(time));
         ArrayList<Graph> graphList = new ArrayList<>();
         ArrayList<Integer> cptGraph = new ArrayList<>();
         int indice;
         int val;
+        System.out.println(time);
 
         // On créer 1 million d'arbres couvrant du graphe d'exemple
-        for (int i = 0; i < 10; i++) {
-            System.out.println("==================NOUVEAU GRAPHE==================");
+        for (int i = 0; i < 1000000; i++) {
             Graph tmp = algorithme.getArbreCouvrant(graph);
             // Si on a déjà créer cet arbre couvrant, on incrémente le compteur de cet arbre
             if(graphList.contains(tmp)){
@@ -37,7 +39,6 @@ public class MainQuestion6 {
                 // On initialise son compteur à 1
                 cptGraph.add(1);
             }
-
         }
 
         for(int i = 0; i < graphList.size(); i++){

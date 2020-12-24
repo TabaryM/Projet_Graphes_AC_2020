@@ -37,11 +37,16 @@ public class Edge implements Comparable{
                 throw new EdgeException("Chemin incorrect, il faut donner les arêtes dans l'ordre du chemin");
             }
 
+            System.out.println(aretes);
             // Cas répétitif
             for(int i = 2; i < aretes.size()+1; i++){
+                sommetprec = res.get(i-1);
                 arete = aretes.get(i-1);
-                res.add(arete.other(res.get(i-1)));
+                System.out.println("arete"+arete);
+                System.out.println("sommets : "+res);
+                res.add(arete.other(sommetprec));
             }
+            res.add(aretes.get(aretes.size()-1).other(res.get(res.size()-1)));
         }
         return res;
     }
@@ -77,7 +82,7 @@ public class Edge implements Comparable{
      * @return le sommet inconnu
      * @throws EdgeException si le sommet n'est pas reconnu comme un des deux sommets de l'arête
      */
-    final int other(int v) throws EdgeException {
+    public final int other(int v) throws EdgeException {
         if(v != from && v != to){
             throw new EdgeException("Sommet non reconnu (demandé : "+v+"; pour l'arete : "+this);
         }
