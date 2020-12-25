@@ -136,13 +136,10 @@ class EdgeTest {
 
     @Test
     void getCheminAsSommetsUnordered() throws EdgeException {
-        Edge edge1 = new Edge(0, 2);
-        Edge edge2 = new Edge(1, 2);
-        Edge edge3 = new Edge(1, 3);
         List<Edge> edges = new ArrayList<>();
-        edges.add(edge1);
-        edges.add(edge2);
-        edges.add(edge3);
+        edges.add(new Edge(0, 2));
+        edges.add(new Edge(1, 2));
+        edges.add(new Edge(1, 3));
 
         List<Integer> sommets = new ArrayList<>();
         sommets.add(0);
@@ -154,13 +151,10 @@ class EdgeTest {
 
     @Test
     void getCheminAsSommetsOrdered() throws EdgeException {
-        Edge edge1 = new Edge(0, 2);
-        Edge edge2 = new Edge(2, 1);
-        Edge edge3 = new Edge(1, 3);
         List<Edge> edges = new ArrayList<>();
-        edges.add(edge1);
-        edges.add(edge2);
-        edges.add(edge3);
+        edges.add(new Edge(0, 2));
+        edges.add(new Edge(2, 1));
+        edges.add(new Edge(1, 3));
 
         List<Integer> sommets = new ArrayList<>();
         sommets.add(0);
@@ -171,16 +165,52 @@ class EdgeTest {
     }
 
     @Test
-    void getCheminAsSommetsWierd() throws EdgeException {
-        Edge edge1 = new Edge(0, 1);
-        Edge edge2 = new Edge(0, 2);
-        Edge edge3 = new Edge(1, 2);
-        Edge edge4 = new Edge(1, 3);
+    void getCheminAsSommetsError() {
         List<Edge> edges = new ArrayList<>();
-        edges.add(edge1);
-        edges.add(edge2);
-        edges.add(edge3);
-        edges.add(edge4);
+        edges.add(new Edge(0, 2));
+        edges.add(new Edge(2, 1));
+        edges.add(new Edge(2, 3));
+
+        assertThrows(EdgeException.class, () -> Edge.getCheminAsSommets(edges));
+    }
+
+    @Test
+    void getCheminAsSommetsAvecCycle() throws EdgeException {
+        List<Edge> edges = new ArrayList<>();
+        edges.add(new Edge(1, 2));
+        edges.add(new Edge(2, 1));
+        edges.add(new Edge(1, 0));
+
+        List<Integer> sommets = new ArrayList<>();
+        sommets.add(1);
+        sommets.add(2);
+        sommets.add(1);
+        sommets.add(0);
+        assertEquals(sommets, Edge.getCheminAsSommets(edges));
+    }
+
+    @Test
+    void getCheminAsSommetsAvecCycleDansLAutreSens() throws EdgeException {
+        List<Edge> edges = new ArrayList<>();
+        edges.add(new Edge(2, 1));
+        edges.add(new Edge(1, 2));
+        edges.add(new Edge(2, 0));
+
+        List<Integer> sommets = new ArrayList<>();
+        sommets.add(2);
+        sommets.add(1);
+        sommets.add(2);
+        sommets.add(0);
+        assertEquals(sommets, Edge.getCheminAsSommets(edges));
+    }
+
+    @Test
+    void getCheminAsSommetsWierd() throws EdgeException {
+        List<Edge> edges = new ArrayList<>();
+        edges.add(new Edge(0, 1));
+        edges.add(new Edge(0, 2));
+        edges.add(new Edge(1, 2));
+        edges.add(new Edge(1, 3));
 
         List<Integer> sommets = new ArrayList<>();
         sommets.add(1);
@@ -197,15 +227,11 @@ sommets : [1, 2, 1, 3]
 
     @Test
     void getCheminAsArete() throws EdgeException {
-        Edge edge1 = new Edge(1, 2);
-        Edge edge2 = new Edge(2, 3);
-        Edge edge3 = new Edge(3, 4);
-        Edge edge4 = new Edge(4, 6);
         List<Edge> edges = new ArrayList<>();
-        edges.add(edge1);
-        edges.add(edge2);
-        edges.add(edge3);
-        edges.add(edge4);
+        edges.add(new Edge(1, 2));
+        edges.add(new Edge(2, 3));
+        edges.add(new Edge(3, 4));
+        edges.add(new Edge(4, 6));
 
         List<Integer> sommets = new ArrayList<>();
         sommets.add(1);

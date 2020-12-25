@@ -5,6 +5,7 @@ import graphes.Edge;
 import graphes.Graph;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -17,6 +18,7 @@ import static graphes.Edge.getCheminAsSommets;
 public class Wilson implements Algorithme{
     private final Random random;
     private final List<Integer> sommetsVisites = new ArrayList<>();
+    private final List<Integer> sommetsInconnus = new ArrayList<>();
     private Graph g;
 
     public Wilson(Random random) {
@@ -31,17 +33,24 @@ public class Wilson implements Algorithme{
         for (int i = 0; i < res.vertices(); i++) {
             res.setCoordinate(i, g.getCoordX(i), g.getCoordY(i));
         }
+
         sommetsVisites.clear();
-        sommetsVisites.add(random.nextInt(res.vertices()));
+        sommetsInconnus.clear();
+        for(int i = 0; i < g.vertices(); i++){
+            sommetsInconnus.add(i);
+        }
+
+        sommetsVisites.add(sommetsInconnus.get(0));
+        sommetsInconnus.remove(0);
 
         int pointDeDepart ;
         List<Edge> marche;
         int from, to;
         while (sommetsVisites.size() < res.vertices()){
             // On trouve un point de départ utilisable
-            do {
-                pointDeDepart = random.nextInt(res.vertices());
-            } while (sommetsVisites.contains(pointDeDepart));
+            pointDeDepart = sommetsInconnus.get(0);
+            sommetsInconnus.remove(0);
+
             // On fait une marche aléatoire depuis ce point de départ jusqu'à un des sommets de l'arbre couvrant (contenus dans sommetVisites).
             marche = marcheAleatoire(pointDeDepart);
 

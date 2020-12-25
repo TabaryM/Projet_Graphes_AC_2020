@@ -16,11 +16,48 @@ public class Edge implements Comparable{
         if(aretes.size() < 1) {
             throw new EdgeException("Nombre d'arête non propice à la décomposition en sommets.\nAttendu : >= 1");
         }
+        trisAretePourChemin(aretes);
+        if(!isChemin(aretes)){
+            throw new EdgeException("Cette liste d'arête ne représente pas un chemin : "+aretes);
+        }
         List<Integer> res = new ArrayList<>();
         for(Edge edge : aretes){
+            //edge.sort();
             res.add(edge.from);
         }
         res.add(aretes.get(aretes.size()-1).getTo());
+        return res;
+    }
+
+    /**
+     * Tris les arêtes pour que le from d'une arête soit égal au to de l'arête suivante
+     * @param aretes un chemin d'arête qui se suivent (deux arêtes successives ont au moins un sommet commun)
+     * @throws EdgeException si deux arêtes successives n'ont pas un sommet commun.
+     */
+    private static void trisAretePourChemin(List<Edge> aretes) throws EdgeException {
+        if(!isChemin(aretes)) {
+            Edge current, successor;
+            int tmp;
+            for(int i = aretes.size() - 1 ; i > 0; i--){
+                current = aretes.get(i-1);
+                successor = aretes.get(i);
+                if(current.to != successor.from){
+                    tmp = current.from;
+                    current.from = current.other(tmp);
+                    current.to = tmp;
+                }
+                if(current.to != successor.from){
+                    throw new EdgeException("Arêtes non successives : "+current+" et "+successor);
+                }
+            }
+        }
+    }
+
+    private static boolean isChemin(List<Edge> aretes){
+        boolean res = true;
+        for(int i = 0; i < aretes.size() -1; i++){
+            res &= aretes.get(i).to == aretes.get(i+1).from;
+        }
         return res;
     }
 
