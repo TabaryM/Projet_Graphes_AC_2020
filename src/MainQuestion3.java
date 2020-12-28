@@ -13,7 +13,7 @@ import java.util.HashMap;
  */
 public class MainQuestion3 {
     public static void main(String[] args) throws EdgeException {
-        Graph graph = Graph.example();
+        Graph graph;
 
         Algorithme algorithme = new Kruskal();
         ArrayList<Graph> graphList = new ArrayList<>();
@@ -23,6 +23,7 @@ public class MainQuestion3 {
 
         // On créer 1 million d'arbres couvrant du graphe d'exemple
         for (int i = 0; i < 1000000; i++) {
+            graph = Graph.example();
             Graph tmp = algorithme.getArbreCouvrant(graph);
             // Si on a déjà créer cet arbre couvrant, on incrémente le compteur de cet arbre
             if(graphList.contains(tmp)){

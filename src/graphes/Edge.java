@@ -135,7 +135,7 @@ public class Edge implements Comparable{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Edge edge = (Edge) o;
-        return (from == edge.from && to == edge.to) || (from == edge.to && to == edge.from);
+        return ((from == edge.from && to == edge.to) || (from == edge.to && to == edge.from)) && (this.used == edge.used);
     }
 
     @Override
@@ -145,7 +145,7 @@ public class Edge implements Comparable{
 
     @Override
     public String toString() {
-        return "("+from+", "+to+")";
+        return "("+from+", "+to+") " + used;
     }
 
     public void sort() {

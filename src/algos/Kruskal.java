@@ -15,24 +15,18 @@ public class Kruskal implements Algorithme{
         List<Edge> edges = g.edges();
         Collections.shuffle(edges);
 
-        Graph res = new Graph(g.vertices());
-        for (int i = 0; i < res.vertices(); i++) {
-            res.setCoordinate(i, g.getCoordX(i), g.getCoordY(i));
-        }
-
-        UnionFind unionFind = new UnionFind(res.vertices());
+        UnionFind unionFind = new UnionFind(g.vertices());
         int from, to;
         for(Edge edge : edges){
             from = edge.getFrom();
             to = edge.getTo();
             if(unionFind.find(from) != unionFind.find(to)){
-                res.addEdge(edge);
+                g.edges().get(g.edges().indexOf(edge)).setUsed(true);
                 unionFind.union(to, from);
-                edge.setUsed(true);
             }
         }
-        res.sort();
-        return res;
+        g.sort();
+        return g;
     }
 
 }

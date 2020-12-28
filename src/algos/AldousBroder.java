@@ -20,10 +20,6 @@ public class AldousBroder implements Algorithme{
     @Override
     public Graph getArbreCouvrant(Graph g) {
         // On copie les sommets du graphe dans l'arbre couvrant
-        Graph res = new Graph(g.vertices());
-        for (int i = 0; i < res.vertices(); i++) {
-            res.setCoordinate(i, g.getCoordX(i), g.getCoordY(i));
-        }
 
         int sommetCourant, sommetDOrigine;
         // sommetCourant = sommetDOrigine = 0;
@@ -49,13 +45,12 @@ public class AldousBroder implements Algorithme{
                 sommetCourant = edge.getFrom();
             }
             if(!sommetsVisites.contains(sommetCourant)){
-                edge.setUsed(true);
                 sommetsVisites.add(sommetCourant);
-                res.addEdge(edge);
+                g.edges().get(g.edges().indexOf(edge)).setUsed(true);
             }
         }
 
-        res.sort();
-        return res;
+        g.sort();
+        return g;
     }
 }

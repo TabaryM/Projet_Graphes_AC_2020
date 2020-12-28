@@ -29,10 +29,6 @@ public class Wilson implements Algorithme{
     public Graph getArbreCouvrant(Graph g) throws EdgeException {
         this.g = g;
         // On copie les sommets du graphe dans l'arbre couvrant
-        Graph res = new Graph(g.vertices());
-        for (int i = 0; i < res.vertices(); i++) {
-            res.setCoordinate(i, g.getCoordX(i), g.getCoordY(i));
-        }
 
         sommetsVisites.clear();
         sommetsInconnus.clear();
@@ -46,7 +42,9 @@ public class Wilson implements Algorithme{
         int pointDeDepart ;
         List<Edge> marche;
         int from, to;
-        while (sommetsVisites.size() < res.vertices()){
+        int indice;
+        Edge areteDansGraph;
+        while (sommetsVisites.size() < g.vertices()){
             // On trouve un point de départ utilisable
             pointDeDepart = sommetsInconnus.get(0);
             sommetsInconnus.remove(0);
@@ -67,15 +65,16 @@ public class Wilson implements Algorithme{
 
             // On ajoute les arêtes à l'arbre couvrant
             for(Edge edge : marche){
-                if(!res.edges().contains(edge)) {
-                    res.addEdge(edge);
-                    edge.setUsed(true);
+                indice = g.edges().indexOf(edge);
+                if(indice != -1){
+                    areteDansGraph = g.edges().get(indice);
+                    areteDansGraph.setUsed(true);
                 }
             }
         }
 
-        res.sort();
-        return res;
+        g.sort();
+        return g;
     }
 
     private List<Edge> nettoieCycles(List<Edge> marche) throws EdgeException {
