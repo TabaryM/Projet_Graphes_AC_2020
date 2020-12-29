@@ -19,7 +19,7 @@ public class Test{
 			   crée un .tex qui contient le labyrinthe correspondant */
 
 		try {
-			PrintWriter writer = new PrintWriter(file, StandardCharsets.UTF_8);
+			PrintWriter writer = new PrintWriter(file, "UTF-8");
 			writer.println("\\documentclass{article}\n\\usepackage{tikz}\n\\usepackage[a3paper]{geometry}\n\\begin{document}");
 			writer.println("\\begin{tikzpicture}");
 

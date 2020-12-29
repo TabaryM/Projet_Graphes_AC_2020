@@ -118,8 +118,7 @@ public class Wilson implements Algorithme{
             marcheInteger.subList(premierIndicePremierSommetRepete, dernierIndicePremierSommetRepete).clear();
         }
 
-        List<Edge> edges = getCheminAsArete(marcheInteger);
-        return edges;
+        return getCheminAsArete(marcheInteger);
     }
 
     private List<Edge> marcheAleatoire(Integer pointDeDepart){

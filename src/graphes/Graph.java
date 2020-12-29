@@ -188,7 +188,7 @@ public class Graph{
 	public void writeFile(String s) {
 		// Visualisable sur le site https://dreampuf.github.io/GraphvizOnline/
 		try {
-			PrintWriter writer = new PrintWriter(s, StandardCharsets.UTF_8);
+			PrintWriter writer = new PrintWriter(s, "UTF-8");
 					writer.println("digraph G{");
 			for (Edge e: edges()){
 				writer.println(e.from + "->" + e.to+";");

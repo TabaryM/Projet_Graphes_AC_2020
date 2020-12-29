@@ -23,6 +23,9 @@
 % Document
 \begin{document}
     \maketitle
+    \newpage
+    \tableofcontents
+    \newpage
 
     \section{Introduction}\label{sec:introduction}
         Ce projet a été réalisé par Paul-Emile Watelot et Mathieu Tabary en première année de Master Informatique de Nancy.
@@ -39,11 +42,43 @@
         \subsection{Tester l'algorithme un million de fois sur le graphe $G_1$,
         et vérifier expérimentalement que les 8 arbres couvrants n'ont pas tous la même probabilité d'apparaître}\label{subsec:Q3}
             En testant un million de fois l'algorithme de Kruskal sur le graphe $G_1$,
-            on observe que les arbres couvrants A, B, C et D ont une probabilité d'apparition de 11\%,
+            on observe que les arbres couvrants A, B, C et D ont une probabilité d'apparition de 11\% environ,
             alors que les arbres couvrants E, F, G et H ont une probabilité d'apparition de 13\% environ.
-    
+
         \subsection{Prouver rigoureusement que les 8 arbres couvrants n'ont pas tous la même probabilité d'apparaître.}\label{subsec:Q4}
+            Le test sur un million de copies du graphe G1 se fait par la méthode main de la classe MainQuestion3.
             La différence notable entre les arbres couvrants A, B, C et D, face aux arbres couvrants E, F, G et H est l'arête (2, 3).
             Les sommets 2 et 3 ont un degré de 3, alors que les sommets 0 et 1 ont un degré de 2.
             L'arête (2, 3)
+    
+        \subsection{Implémenter l'algorithme d'Aldous et Broder.
+        Tester l'algorithme un million de fois sur le graphe G1,
+        et vérifier expérimentalement que les 8 arbres couvrants ont tous la même probabilité d'apparaître.}\label{subsec:Q5}
+            Le test sur un million de copies du graphe G1 se fait par la méthode main de la classe MainQuestion5.
+            Le nombre d'occurrences et le pourcentage d'apparition de chaque arbre couvrant est indiqué dans le titre de la fenêtre du graphe et au-dessus du dessin du graphe.
+            On peut ainsi constater que chaque arbre couvrant a une probabilité d'environ $12,5\%$ , ou $\frac{1}{8}$ d'apparaître.
+    
+        \subsection{Implémenter l'algorithme de Wilson.
+        Tester l'algorithme un million de fois sur le graphe G1,
+        et vérifier expérimentalement que les 8 arbres couvrants ont tous la même probabilité d'apparaître.}\label{subsec:Q6}
+            Similairement aux questions précédentes, le test se fait par la méthode main de la classe MainQuestion6.
+            Le nombre d'occurrences et le pourcentage d'apparition de chaque arbre couvrant est indiqué dans le titre de la fenêtre du graphe et au-dessus du dessin du graphe.
+            On constate que chaque arbre couvrant a une probabilité d'environ $12,5\%$ , ou $\frac{1}{8}$ d'apparaître,
+            on peut en déduire que cette implantation de l'algorithme de Wilson respecte la répartition uniforme des arbres couvrants.
+
+    \section{Application ludique : les labyrinthes}\label{sec:labyrinthes}
+        \subsection{Écrire un algorithme qui crée un labyrinthe 20x20 obtenu avec la méthode de Kruskal
+        et un labyrinthe 20x20 obtenu avec la méthode de Aldous-Broder (ou Wilson).}\label{subsec:Q7.}
+            Pour créer un labyrinthe, on commence par créer un graphe en forme de grille à la taille du labyrinthe (ici 20x20).
+            Ensuite, on cherche un arbre couvrant avec un des algorithmes écrit précédemment.
+            Le labyrinthe est cet arbre couvrant.
+            Les sommets du graphe sont les salles du labyrinthe et chaque sommet est relié aux sommets de chaque côtés de lui (au-dessus, au-dessous, à gauche et à droite).
+            Si une arête est marquée comme $used$, c'est un couloir pour le labyrinthe, sinon c'est un mur.
+            Ainsi, avec l'implémentation des algorithmes précédents, la création de labyrinthe est très simplifiée.
+            La méthode main de la classe MainQuestion7 créer trois labyrinthes (un par méthode), et créer le fichier .tex associé.
+
+
+        \subsection{Pour les deux méthodes (Kurskal ou Aldous-Broder / Wilson),
+        comparer le nombre moyen de cul de sac, la distance moyenne de l'entrée à la sortie.}\label{subsec:Q8}
+
 \end{document}
