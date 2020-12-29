@@ -12,9 +12,7 @@ import java.util.Random;
 import static graphes.Edge.getCheminAsArete;
 import static graphes.Edge.getCheminAsSommets;
 
-/**
- * @author Tabary
- */
+
 public class Wilson implements Algorithme{
     private final Random random;
     private final List<Integer> sommetsVisites = new ArrayList<>();

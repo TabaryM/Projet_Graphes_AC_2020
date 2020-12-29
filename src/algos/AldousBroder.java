@@ -7,9 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-/**
- * @author Tabary
- */
+
 public class AldousBroder implements Algorithme{
     final Random random;
 

@@ -6,11 +6,10 @@ import graphes.Edge;
 import graphes.Graph;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-/**
- * @author Tabary
- */
+
 public class Labyrinthe {
     protected final Algorithme algorithme;
     private final Graph laby;
@@ -20,13 +19,14 @@ public class Labyrinthe {
     public Labyrinthe(Algorithme algorithme, int taille) throws EdgeException {
         this.algorithme = algorithme;
         laby = algorithme.getArbreCouvrant(Graph.Grid(taille));
+
         distance = new int[laby.vertices()];
         parent = new int[laby.vertices()];
         for (int i = 0; i < laby.vertices(); i++) {
             distance[i] = Integer.MAX_VALUE;
-            parent[i] = i;
+            parent[i] = -1;
         }
-        calculDistances(taille-1);
+        calculDistances(0);
     }
 
     public Graph getLaby() {
@@ -61,30 +61,40 @@ public class Labyrinthe {
     public void calculDistances(int sommetDebut) throws EdgeException {
         List<Integer> listeSommets = new ArrayList<>();
         List<Integer> sommetsParcourus = new ArrayList<>();
+
+        Integer courrant, succ;
+
         listeSommets.add(sommetDebut);
-        int courrant, succ;
-        int profondeur = 1;
-        while(listeSommets.size() != 0){ // On parcourera tous les sommets
+        distance[sommetDebut] = 0;
+        parent[sommetDebut] = sommetDebut;
+
+        while(!listeSommets.isEmpty()){ // On parcourera tous les sommets
             courrant = listeSommets.get(0);
-            listeSommets.remove(0);
+
             sommetsParcourus.add(courrant);
-            for(Edge edge : laby.adj(courrant)){
+            listeSommets.remove(0);
+
+            for(Edge edge : laby.adj(courrant)){        // Pour voisin...
                 if(edge.isUsed()){                      // On ne regarde que les arêtes de l'arbre couvrant (i.e : les couloirs du labyrinthe)
                     succ = edge.other(courrant);
                     if(!sommetsParcourus.contains(succ) && !listeSommets.contains(succ)) {
                         listeSommets.add(succ);
                     }
-                    if(parent[succ] == succ){           // On ne met à jour que si c'est la première fois qu'on observe ce sommet
+                    if(distance[succ] > distance[courrant]+1){
                         parent[succ] = courrant;
-                        distance[succ] = profondeur;
+                        distance[succ] = distance[courrant]+1;
                     }
                 }
             }
-            profondeur = profondeur + 1;
         }
     }
 
     public int getDistanceFromEntree(int salle){
         return distance[salle];
     }
+
+    List<Edge> edges(){
+        return laby.edges();
+    }
+
 }

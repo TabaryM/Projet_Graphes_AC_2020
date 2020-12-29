@@ -6,9 +6,7 @@ import graphes.Graph;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * @author Tabary
- */
+
 public class Kruskal implements Algorithme{
     @Override
     public Graph getArbreCouvrant(Graph g) {

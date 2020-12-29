@@ -3,9 +3,7 @@ package algos;
 import exception.EdgeException;
 import graphes.Graph;
 
-/**
- * @author Tabary
- */
+
 public interface Algorithme {
     /**
      * Pour un graphe donné, retourne ce même graphe avec les arêtes utilisées par l'arbre couvrant marquées comme used
