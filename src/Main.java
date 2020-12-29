@@ -92,21 +92,31 @@ public class Main {
         Labyrinthe labyrinthe;
         Graph graph;
         Random random = new Random(System.currentTimeMillis());
+        long debut, fin;
 
+        debut = System.currentTimeMillis();
         algorithme = new Kruskal();
         labyrinthe = new Labyrinthe(algorithme, 20);
         graph = labyrinthe.getLaby();
         Test.printLaby(graph, 20, "out/labyKruskal.tex");
+        fin = System.currentTimeMillis();
+        System.out.println("Kruskal : "+(fin-debut));
 
+        debut = System.currentTimeMillis();
         algorithme = new AldousBroder(random);
         labyrinthe = new Labyrinthe(algorithme, 20);
         graph = labyrinthe.getLaby();
         Test.printLaby(graph, 20, "out/labyAldousBroder.tex");
+        fin = System.currentTimeMillis();
+        System.out.println("AldousBroder : "+(fin-debut));
 
+        debut = System.currentTimeMillis();
         algorithme = new Wilson(random);
         labyrinthe = new Labyrinthe(algorithme, 20);
         graph = labyrinthe.getLaby();
         Test.printLaby(graph, 20, "out/labyWilson.tex");
+        fin = System.currentTimeMillis();
+        System.out.println("Wilson : "+(fin-debut));
     }
 
     /**
