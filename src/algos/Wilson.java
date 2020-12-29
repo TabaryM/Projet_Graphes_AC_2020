@@ -42,13 +42,21 @@ public class Wilson implements Algorithme{
         Integer from, to;
         int indice;
         Edge areteDansGraph;
+
+        long startTime, endTime, duration = 0;
+        double compteur = 0.0;
+
         while (sommetsVisites.size() < g.vertices()){
             // On trouve un point de départ utilisable
             pointDeDepart = sommetsInconnus.get(0);
             sommetsInconnus.remove(0);
 
             // On fait une marche aléatoire depuis ce point de départ jusqu'à un des sommets de l'arbre couvrant (contenus dans sommetVisites).
-            marcheSommet = Edge.getCheminAsSommets(marcheAleatoire(pointDeDepart));
+            startTime = System.currentTimeMillis();
+            marcheSommet = marcheAleatoire(pointDeDepart);
+            endTime = System.currentTimeMillis();
+            duration += endTime - startTime;
+            compteur++;
 
             // On nettoie la marche des cycles
             nettoieCycles(marcheSommet);
@@ -80,6 +88,7 @@ public class Wilson implements Algorithme{
         }
 
         g.sort();
+        //System.out.println("duration : " + (duration/compteur));
         return g;
     }
 
@@ -120,49 +129,39 @@ public class Wilson implements Algorithme{
         return false;
     }
 
-    private List<Edge> marcheAleatoire(Integer pointDeDepart){
-        List<Edge> marche = new ArrayList<>();
+    private List<Integer> marcheAleatoire(Integer pointDeDepart){
+        List<Integer> res = new ArrayList<>();
         boolean stop = false;
 
         List<Edge> adj;
-        Edge edge, added;
+        Edge edge;
 
         int sommetCourant = pointDeDepart, sommetDOrigine;
-        //sommetCourant = random.nextInt(g.vertices());
+        res.add(sommetCourant);
 
         while (!stop){
             // On récupère la liste d'adjacence du sommet courant
-            adj = g.adj(sommetCourant);
             sommetDOrigine = sommetCourant;
+            adj = g.adj(sommetCourant);
             edge = adj.get(random.nextInt(adj.size()));
             // Soit l'arête a pour origine le sommet courant
+
             if(edge.getFrom() == sommetDOrigine){
                 sommetCourant = edge.getTo();
             } else {
                 // Soit elle a le sommet courant pour destination
                 sommetCourant = edge.getFrom();
             }
-            try {
-                added = new Edge(edge.other(sommetCourant), sommetCourant);
-                marche.add(added);
-            } catch (EdgeException e) {
-                e.printStackTrace();
-            }
-            //System.out.println("origine : "+sommetDOrigine+"\tchemin : "+marche);
 
+            res.add(sommetCourant);
             // On vérifie si on doit s'arrêter
-            for(Integer sommet : sommetsVisites) stop |= contientSommet(marche, sommet);
+            for(Integer sommet : sommetsVisites){
+                stop = res.contains(sommet);
+                if (stop) break;
+            }
+
         }
 
-        return marche;
+        return res;
     }
-
-    private boolean contientSommet(List<Edge> marche, Integer cible){
-        for(Edge edge : marche){
-            if(edge.getFrom() == cible || edge.getTo() == cible)
-                return true;
-        }
-        return false;
-    }
-
 }
