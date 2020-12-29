@@ -145,7 +145,7 @@ public class Edge implements Comparable{
 
     @Override
     public String toString() {
-        return "("+from+", "+to+") " + used;
+        return "("+from+", "+to+") "/* + used*/;
     }
 
     public void sort() {

@@ -26,7 +26,6 @@ public class Wilson implements Algorithme{
     @Override
     public Graph getArbreCouvrant(Graph g) throws EdgeException {
         this.g = g;
-        // On copie les sommets du graphe dans l'arbre couvrant
 
         sommetsVisites.clear();
         sommetsInconnus.clear();
@@ -39,7 +38,8 @@ public class Wilson implements Algorithme{
 
         int pointDeDepart ;
         List<Edge> marche;
-        int from, to;
+        List<Integer> marcheSommet;
+        Integer from, to;
         int indice;
         Edge areteDansGraph;
         while (sommetsVisites.size() < g.vertices()){
@@ -48,17 +48,25 @@ public class Wilson implements Algorithme{
             sommetsInconnus.remove(0);
 
             // On fait une marche aléatoire depuis ce point de départ jusqu'à un des sommets de l'arbre couvrant (contenus dans sommetVisites).
-            marche = marcheAleatoire(pointDeDepart);
+            marcheSommet = Edge.getCheminAsSommets(marcheAleatoire(pointDeDepart));
 
             // On nettoie la marche des cycles
-            marche = nettoieCycles(marche);
+            nettoieCycles(marcheSommet);
+
+            marche = Edge.getCheminAsArete(marcheSommet);
 
             // On ajoute les sommets à la liste des sommets visités
             for(Edge edge : marche){
                 from = edge.getFrom();
                 to = edge.getTo();
-                if(!sommetsVisites.contains(from)) sommetsVisites.add(from);
-                if(!sommetsVisites.contains(to)) sommetsVisites.add(to);
+                if(!sommetsVisites.contains(from)) {
+                    sommetsVisites.add(from);
+                }
+                if(!sommetsVisites.contains(to)) {
+                    sommetsVisites.add(to);
+                }
+                sommetsInconnus.remove(from);
+                sommetsInconnus.remove(to);
             }
 
             // On ajoute les arêtes à l'arbre couvrant
@@ -75,48 +83,41 @@ public class Wilson implements Algorithme{
         return g;
     }
 
-    private List<Edge> nettoieCycles(List<Edge> marche) throws EdgeException {
-        List<Integer> sommetsRepetes = new ArrayList<>();
-        List<Integer> cptSommetsRepetes = new ArrayList<>();
+    private void nettoieCycles(List<Integer> marche) {
+        int[] cptSommetsRep = new int[g.vertices()];
+        int premierIndice;
+        int dernierIndice;
 
-        ArrayList<Integer> marcheInteger = (ArrayList<Integer>) getCheminAsSommets(marche);
-        int indice;
-        // On compte le nombre d'apparition de chaque sommet
-        for(Integer sommet : marcheInteger){
-            if(!sommetsRepetes.contains(sommet)){
-                sommetsRepetes.add(sommet);
-                cptSommetsRepetes.add(1);
-            } else {
-                indice = sommetsRepetes.indexOf(sommet);
-                cptSommetsRepetes.set(indice, cptSommetsRepetes.get(indice)+1);
+        do {
+            premierIndice = 0;
+            dernierIndice = 0;
+            for(int i = 0; i < g.vertices(); i++){
+                cptSommetsRep[i] = 0;
             }
+
+            // On trouve le premier truc
+            for(Integer sommet : marche){
+                cptSommetsRep[sommet]++;
+                // Détection du premier cycle
+                if(cptSommetsRep[sommet] > 1){
+                    premierIndice = marche.indexOf(sommet);
+                    dernierIndice = marche.lastIndexOf(sommet);
+                    break;
+                }
+            }
+
+            // On supprime le cycle detecté
+            for(int i = 0; i < (dernierIndice - premierIndice); i++){
+                marche.remove(premierIndice);
+            }
+        } while (contientOccurence(cptSommetsRep));
+    }
+
+    private boolean contientOccurence(int[] cptSommetsRep) {
+        for (int j : cptSommetsRep) {
+            if (j > 1) return true;
         }
-
-        // On trouve le sommet avec le plus d'apparition
-        int indicePremierSommetRepete = 0;
-        int nbRepetition = 0;
-        while(nbRepetition < 1 && indicePremierSommetRepete < cptSommetsRepetes.size()){
-            nbRepetition = cptSommetsRepetes.get(indicePremierSommetRepete++);
-        }
-        indicePremierSommetRepete--;
-
-        // S'il n'y a pas de répétition, on n'a pas besoin de nettoyer plus
-        if(nbRepetition == 1) return marche;
-
-        // On trouve le premier et dernier indice du sommet étant apparu plus d'une fois
-        int premierSommetRepete = sommetsRepetes.get(indicePremierSommetRepete);
-
-        // On trouve le permier et le dernier indice du premier sommet répété
-        int premierIndicePremierSommetRepete = marcheInteger.indexOf(premierSommetRepete);
-        int dernierIndicePremierSommetRepete = marcheInteger.lastIndexOf(premierSommetRepete);
-
-        // On supprime tous les éléments entre ces deux indices (premier inclus, dernier exclus)
-        // du genre : marcheInteger.removeRange(premierIndicePremierSommetRepete, dernierIndicePremierSommetRepete);
-        if (dernierIndicePremierSommetRepete > premierIndicePremierSommetRepete) {
-            marcheInteger.subList(premierIndicePremierSommetRepete, dernierIndicePremierSommetRepete).clear();
-        }
-
-        return getCheminAsArete(marcheInteger);
+        return false;
     }
 
     private List<Edge> marcheAleatoire(Integer pointDeDepart){
