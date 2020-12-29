@@ -8,7 +8,6 @@ import java.util.Arrays;
  * Structure inspirée de la page https://fr.wikipedia.org/w/index.php?title=Union-find&oldid=171197463
  */
 public class UnionFind {
-    private final int[] modele;
     private final int[] parents;
     private final int[] rang;
 
@@ -19,10 +18,8 @@ public class UnionFind {
      */
     public UnionFind(int N){
         parents = new int[N];
-        modele = new int[N];
         rang = new int[N];
         Arrays.fill(rang, 0);
-        for(int i = 0; i < N; i++) modele[i] = i;
         for(int i = 0; i < N; i++) parents[i] = i;
     }
 

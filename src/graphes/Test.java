@@ -34,6 +34,7 @@ public class Test{
 					writer.println("\\draw (0.1,0.6) -- (0.1, 0.9);");
 					writer.println("\\draw (0.9,0.1) -- (0.9,0.4);");
 					writer.println("\\draw (0.9,0.6) -- (0.9,0.9);");
+					writer.println("\\node at (0.5, 0.5) {"+((size*i)+j)+"};");
 					writer.println("\\end{scope}");
 				}
 			}

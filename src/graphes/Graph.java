@@ -1,6 +1,5 @@
 package graphes;
 
-import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.io.*;
 import java.awt.*;
