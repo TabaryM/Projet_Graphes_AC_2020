@@ -35,7 +35,7 @@ public class Main {
                 testCreateLaby();
                 break;
             case "Q8":
-                testLabyKruskalVSWilson();
+                testLabyKruskalVSWilsonVSAldousBroder();
                 break;
         }
         if(algorithme != null) {
@@ -92,31 +92,21 @@ public class Main {
         Labyrinthe labyrinthe;
         Graph graph;
         Random random = new Random(System.currentTimeMillis());
-        long debut, fin;
 
-        debut = System.currentTimeMillis();
         algorithme = new Kruskal();
         labyrinthe = new Labyrinthe(algorithme, 20);
         graph = labyrinthe.getLaby();
         Test.printLaby(graph, 20, "out/labyKruskal.tex");
-        fin = System.currentTimeMillis();
-        System.out.println("Kruskal : "+(fin-debut));
 
-        debut = System.currentTimeMillis();
         algorithme = new AldousBroder(random);
         labyrinthe = new Labyrinthe(algorithme, 20);
         graph = labyrinthe.getLaby();
         Test.printLaby(graph, 20, "out/labyAldousBroder.tex");
-        fin = System.currentTimeMillis();
-        System.out.println("AldousBroder : "+(fin-debut));
 
-        debut = System.currentTimeMillis();
         algorithme = new Wilson(random);
         labyrinthe = new Labyrinthe(algorithme, 20);
         graph = labyrinthe.getLaby();
         Test.printLaby(graph, 20, "out/labyWilson.tex");
-        fin = System.currentTimeMillis();
-        System.out.println("Wilson : "+(fin-debut));
     }
 
     /**
@@ -124,16 +114,19 @@ public class Main {
      * Fait la même chose avec la méthode Wilson
      * Affiche le nombre moyen de cul de sac et la distance moyenne de l'entrée à la sortie ainsi que le temps d'exécution en secondes
      */
-    public static void testLabyKruskalVSWilson() throws EdgeException {
+    public static void testLabyKruskalVSWilsonVSAldousBroder() throws EdgeException {
         Algorithme algorithme;
         Labyrinthe labyrinthe;
         Random random = new Random(System.currentTimeMillis());
+        // Nombre moyen de cul de sac
         float nbMoyenCDS;
+        // Taille moyenne du chemin entre l'entrée et la sortie
         float distanceMoyenne;
+        // Taille des labyrinthes
         int taille = 20;
+        // Nombre de labyrinthe à produire
         int nbLaby = 1000;
         long debut, fin;
-
 
         nbMoyenCDS = 0;
         distanceMoyenne = 0;
@@ -150,7 +143,7 @@ public class Main {
         System.out.println("\tle nombre moyen de cul-de-sacs est de : "+nbMoyenCDS);
         System.out.println("\tla distance moyenne entre l'entrée et la sortie est de : "+distanceMoyenne);
         fin = System.currentTimeMillis();
-        System.out.println("Temps d'execution : "+((fin-debut)/1000f)+" secondes");
+        System.out.println("\tTemps d'execution : "+((fin-debut)/1000f)+" secondes");
 
         nbMoyenCDS = 0;
         distanceMoyenne = 0;
@@ -167,6 +160,23 @@ public class Main {
         System.out.println("\tle nombre moyen de cul-de-sacs est de : "+nbMoyenCDS);
         System.out.println("\tla distance moyenne entre l'entrée et la sortie est de : "+distanceMoyenne);
         fin = System.currentTimeMillis();
-        System.out.println("Temps d'execution : "+((fin-debut)/1000f)+" secondes");
+        System.out.println("\tTemps d'execution : "+((fin-debut)/1000f)+" secondes");
+
+        nbMoyenCDS = 0;
+        distanceMoyenne = 0;
+        algorithme = new AldousBroder(random);
+        System.out.println("\nAlgorithme de Aldous et Broder : ");
+        debut = System.currentTimeMillis();
+        for(int i = 0; i < nbLaby; i++){
+            labyrinthe = new Labyrinthe(algorithme, taille);
+            nbMoyenCDS += labyrinthe.getCulDeSac();
+            distanceMoyenne += labyrinthe.getDistanceFromEntree(taille*taille-1);
+        }
+        nbMoyenCDS = nbMoyenCDS / nbLaby;
+        distanceMoyenne = distanceMoyenne / nbLaby;
+        System.out.println("\tle nombre moyen de cul-de-sacs est de : "+nbMoyenCDS);
+        System.out.println("\tla distance moyenne entre l'entrée et la sortie est de : "+distanceMoyenne);
+        fin = System.currentTimeMillis();
+        System.out.println("\tTemps d'execution : "+((fin-debut)/1000f)+" secondes");
     }
 }

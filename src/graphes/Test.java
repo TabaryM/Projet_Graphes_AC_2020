@@ -2,7 +2,6 @@ package graphes;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -26,15 +25,14 @@ public class Test{
 			for (int i = 0; i < size; i++) {
 				for (int j = 0; j < size; j++) {
 					writer.println(String.format(Locale.US, "\\begin{scope}[xshift=%dcm, yshift=%dcm]", i , j));
-					writer.println("\\draw (0.1,0.1) -- (0.4,0.1);");
-					writer.println("\\draw (0.6,0.1) -- (0.9,0.1);");
-					writer.println("\\draw (0.1,0.9) -- (0.4,0.9);");
-					writer.println("\\draw (0.6,0.9) -- (0.9,0.9);");
-					writer.println("\\draw (0.1,0.1) -- (0.1, 0.4);");
-					writer.println("\\draw (0.1,0.6) -- (0.1, 0.9);");
-					writer.println("\\draw (0.9,0.1) -- (0.9,0.4);");
-					writer.println("\\draw (0.9,0.6) -- (0.9,0.9);");
-					//writer.println("\\node at (0.5, 0.5) {"+((size*i)+j)+"};");
+					writer.println("\\draw (0.1, 0.1) -- (0.4, 0.1);");
+					writer.println("\\draw (0.6, 0.1) -- (0.9, 0.1);");
+					writer.println("\\draw (0.1, 0.9) -- (0.4, 0.9);");
+					writer.println("\\draw (0.6, 0.9) -- (0.9, 0.9);");
+					writer.println("\\draw (0.1, 0.1) -- (0.1, 0.4);");
+					writer.println("\\draw (0.1, 0.6) -- (0.1, 0.9);");
+					writer.println("\\draw (0.9, 0.1) -- (0.9, 0.4);");
+					writer.println("\\draw (0.9, 0.6) -- (0.9, 0.9);");
 					writer.println("\\end{scope}");
 				}
 			}
@@ -42,23 +40,23 @@ public class Test{
 			/* bord */
 			for (int i = 0; i < size; i++) {
 					writer.println(String.format(Locale.US, "\\begin{scope}[xshift=%dcm, yshift=%dcm]", i , 0));
-					writer.println("\\draw(0.4,0.1) -- (0.6, 0.1);");
+					writer.println("\\draw(0.4, 0.1) -- (0.6, 0.1);");
 					writer.println("\\end{scope}");
 					writer.println(String.format(Locale.US, "\\begin{scope}[xshift=%dcm, yshift=%dcm]", i , size-1));
-					writer.println("\\draw(0.4,0.9) -- (0.6, 0.9);");
+					writer.println("\\draw(0.4, 0.9) -- (0.6, 0.9);");
 					writer.println("\\end{scope}");
 				if (i > 0) {
 					writer.println(String.format(Locale.US, "\\begin{scope}[xshift=%dcm, yshift=%dcm]", 0 , i));
-					writer.println("\\draw(0.1,0.4) -- (0.1, 0.6);");
+					writer.println("\\draw(0.1, 0.4) -- (0.1, 0.6);");
 					writer.println("\\end{scope}");
 				}
 				if (i < size - 1) {
 					writer.println(String.format(Locale.US, "\\begin{scope}[xshift=%dcm, yshift=%dcm]", size -1 , i));
-					writer.println("\\draw(0.9,0.4) -- (0.9, 0.6);");
+					writer.println("\\draw(0.9, 0.4) -- (0.9, 0.6);");
 					writer.println("\\end{scope}");
 				}
-				writer.println("\\draw (0,0.4) -- (0.1, 0.4);");
-				writer.println("\\draw (0,0.6) -- (0.1, 0.6);");
+				writer.println("\\draw (0, 0.4) -- (0.1, 0.4);");
+				writer.println("\\draw (0, 0.6) -- (0.1, 0.6);");
 				writer.println(String.format(Locale.US, "\\draw (%d, %d) ++ (0, 0.4)  -- ++ (-0.1, 0); ", size , size -1));
 				writer.println(String.format(Locale.US, "\\draw (%d, %d) ++ (0, 0.6)  -- ++ (-0.1, 0); ", size , size -1));
 			}
@@ -70,22 +68,22 @@ public class Test{
 				if (e.to == e.from + size) {
 					/* arête verticale */
 					if (!e.used) {
-						writer.println("\\draw (0.4,0.9) -- (0.6,0.9);");
-						writer.println("\\draw (0.4,1.1) -- (0.6,1.1);");
+						writer.println("\\draw (0.4, 0.9) -- (0.6, 0.9);");
+						writer.println("\\draw (0.4, 1.1) -- (0.6, 1.1);");
 					} else {
-						writer.println("\\draw (0.4,0.9) -- (0.4,1.1);");
-						writer.println("\\draw (0.6,0.9) -- (0.6,1.1);");
+						writer.println("\\draw (0.4, 0.9) -- (0.4, 1.1);");
+						writer.println("\\draw (0.6, 0.9) -- (0.6, 1.1);");
 					}
 				}
 				else{
 					/* arête horizontale */
 					if (!e.used) {
-						writer.println("\\draw (0.9,0.4) -- (0.9,0.6);");
-						writer.println("\\draw (1.1,0.4) -- (1.1,0.6);");
+						writer.println("\\draw (0.9, 0.4) -- (0.9, 0.6);");
+						writer.println("\\draw (1.1, 0.4) -- (1.1, 0.6);");
 					}
 					else {
-						writer.println("\\draw (0.9,0.4) -- (1.1,0.4);");
-						writer.println("\\draw (0.9,0.6) -- (1.1,0.6);");
+						writer.println("\\draw (0.9, 0.4) -- (1.1, 0.4);");
+						writer.println("\\draw (0.9, 0.6) -- (1.1, 0.6);");
 					}
 				}
 				writer.println("\\end{scope}");
