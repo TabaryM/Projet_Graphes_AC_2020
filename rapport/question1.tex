@@ -36,9 +36,11 @@ Le nom des sommets de ce graphe ont été choisis en analysant la méthode stati
         \node[salle, right=15mm of C] (D) {1};
         \node[salle, right=15mm of A] (B) {2};
 
-        \draw (A) to (B);
-        \draw (B) to (D);
-        \draw (C) to (D);
+        \draw[red, line width=0.5mm] (A) to (B);
+        \draw[gray] (A) to (C);
+        \draw[gray] (A) to (D);
+        \draw[red, line width=0.5mm] (B) to (D);
+        \draw[red, line width=0.5mm] (C) to (D);
     \end{tikzpicture}
 
     \subsubsection*{Arbre couvrant B}
@@ -51,9 +53,11 @@ Le nom des sommets de ce graphe ont été choisis en analysant la méthode stati
         \node[salle, right=15mm of C] (D) {1};
         \node[salle, right=15mm of A] (B) {2};
 
-        \draw (A) to (B);
-        \draw (B) to (D);
-        \draw (A) to (C);
+        \draw[red, line width=0.5mm] (A) to (B);
+        \draw[red, line width=0.5mm] (A) to (C);
+        \draw[gray] (A) to (D);
+        \draw[red, line width=0.5mm] (B) to (D);
+        \draw[gray] (C) to (D);
     \end{tikzpicture}
 
     \subsubsection*{Arbre couvrant C}
@@ -66,9 +70,11 @@ Le nom des sommets de ce graphe ont été choisis en analysant la méthode stati
         \node[salle, right=15mm of C] (D) {1};
         \node[salle, right=15mm of A] (B) {2};
 
-        \draw (A) to (B);
-        \draw (A) to (C);
-        \draw (C) to (D);
+        \draw[red, line width=0.5mm] (A) to (B);
+        \draw[red, line width=0.5mm] (A) to (C);
+        \draw[gray] (A) to (D);
+        \draw[gray] (B) to (D);
+        \draw[red, line width=0.5mm] (C) to (D);
     \end{tikzpicture}
 
     \subsubsection*{Arbre couvrant D}
@@ -81,9 +87,11 @@ Le nom des sommets de ce graphe ont été choisis en analysant la méthode stati
         \node[salle, right=15mm of C] (D) {1};
         \node[salle, right=15mm of A] (B) {2};
 
-        \draw (A) to (C);
-        \draw (C) to (D);
-        \draw (D) to (B);
+        \draw[gray] (A) to (B);
+        \draw[red, line width=0.5mm] (A) to (C);
+        \draw[gray] (A) to (D);
+        \draw[red, line width=0.5mm] (C) to (D);
+        \draw[red, line width=0.5mm] (D) to (B);
     \end{tikzpicture}
 
     \subsubsection*{Arbre couvrant E}
@@ -96,9 +104,11 @@ Le nom des sommets de ce graphe ont été choisis en analysant la méthode stati
         \node[salle, right=15mm of C] (D) {1};
         \node[salle, right=15mm of A] (B) {2};
 
-        \draw (A) to (B);
-        \draw (A) to (C);
-        \draw (A) to (D);
+        \draw[red, line width=0.5mm] (A) to (B);
+        \draw[red, line width=0.5mm] (A) to (C);
+        \draw[red, line width=0.5mm] (A) to (D);
+        \draw[gray] (B) to (D);
+        \draw[gray] (C) to (D);
     \end{tikzpicture}
 
     \subsubsection*{Arbre couvrant F}
@@ -111,9 +121,11 @@ Le nom des sommets de ce graphe ont été choisis en analysant la méthode stati
         \node[salle, right=15mm of C] (D) {1};
         \node[salle, right=15mm of A] (B) {2};
 
-        \draw (A) to (C);
-        \draw (A) to (D);
-        \draw (B) to (D);
+        \draw[gray] (A) to (B);
+        \draw[red, line width=0.5mm] (A) to (C);
+        \draw[red, line width=0.5mm] (A) to (D);
+        \draw[red, line width=0.5mm] (B) to (D);
+        \draw[gray] (C) to (D);
     \end{tikzpicture}
 
     \subsubsection*{Arbre couvrant G}
@@ -126,9 +138,11 @@ Le nom des sommets de ce graphe ont été choisis en analysant la méthode stati
         \node[salle, right=15mm of C] (D) {1};
         \node[salle, right=15mm of A] (B) {2};
 
-        \draw (D) to (B);
-        \draw (D) to (C);
-        \draw (D) to (A);
+        \draw[gray] (A) to (B);
+        \draw[gray] (A) to (C);
+        \draw[red, line width=0.5mm] (D) to (B);
+        \draw[red, line width=0.5mm] (D) to (C);
+        \draw[red, line width=0.5mm] (D) to (A);
     \end{tikzpicture}
 
     \subsubsection*{Arbre couvrant H}
@@ -141,8 +155,10 @@ Le nom des sommets de ce graphe ont été choisis en analysant la méthode stati
         \node[salle, right=15mm of C] (D) {1};
         \node[salle, right=15mm of A] (B) {2};
 
-        \draw (A) to (B);
-        \draw (A) to (D);
-        \draw (C) to (D);
+        \draw[red, line width=0.5mm] (A) to (B);
+        \draw[gray] (A) to (C);
+        \draw[red, line width=0.5mm] (A) to (D);
+        \draw[gray] (B) to (D);
+        \draw[red, line width=0.5mm] (C) to (D);
     \end{tikzpicture}
 \end{multicols}
