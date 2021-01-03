@@ -19,6 +19,7 @@
 
 % Mise en page
 \usepackage{multicol}
+\usepackage{hyperref}
 
 % Document
 \begin{document}
@@ -30,6 +31,7 @@
     \section{Introduction}\label{sec:introduction}
         Ce projet a été réalisé par Paul-Emile Watelot et Mathieu Tabary en première année de Master Informatique de Nancy.
         Les programmes et questions ont été écrits et traitées par les deux membres de l'équipe a la suite de discussions par chat vocal et de partage d'écrans.
+
         L'objectif de ce projet est d'implémenter une collection d'algorithmes cherchant un arbre couvrant pour un graphe donné.
         % Algo de Kruskal : https://fr.wikipedia.org/wiki/Algorithme_de_Kruskal
         % Algo de Aldous-Broder : https://en.wikipedia.org/wiki/Maze_generation_algorithm#Aldous-Broder_algorithm
@@ -42,8 +44,9 @@
 
         \subsection{Tester l'algorithme un million de fois sur le graphe $G_1$,
         et vérifier expérimentalement que les 8 arbres couvrants n'ont pas tous la même probabilité d'apparaître}\label{subsec:Q3}
-            On peut tester un million de fois cet algorithme sur le graphe $G_1$ en exécutant le programme avec l'argument $Q3$
-            Le nombre d'occurrences et le pourcentage d'apparition de chaque arbre couvrant est indiqué dans le titre de la fenêtre du graphe et au-dessus du dessin du graphe.
+            On peut tester un million de fois cet algorithme sur le graphe $G_1$ en exécutant le programme avec l'argument Q3.
+            Le nombre d'occurrences et le pourcentage d'apparition de chaque arbre couvrant est
+            indiqué dans le titre de la fenêtre du graphe et au-dessus du dessin du graphe.
             Nous pouvons observer que les arbres couvrants A, B, C et D ont une probabilité d'apparition de 11,7\%,
             alors que les arbres couvrants E, F, G et H ont une probabilité d'apparition de 13,3\%.
 
@@ -63,44 +66,49 @@
             Donc, chaque arête à la même probabilité d'être choisis pour être dans un arbre couvrant
             (être la première arête traitée par l'algorithme),
             mais l'arête (0, 1) ne peut produire que 4 arbres couvrants (contre 5 pour les autres arêtes).
-            Donc les 4 arbres couvrants produits avec l'arête (0, 1) ont plus de chance d'être produits que les abres couvrants n'ayant pas l'arête (0, 1).
+            Donc les 4 arbres couvrants produits avec l'arête (0, 1) ont plus de chance d'être produits que les arbres couvrants n'ayant pas l'arête (0, 1).
     
         \subsection{Implémenter l'algorithme d'Aldous et Broder. Tester l'algorithme un million de fois sur le graphe G1,
         et vérifier expérimentalement que les 8 arbres couvrants ont tous la même probabilité d'apparaître.}\label{subsec:Q5}
-            On peut tester un million de fois cet algorithme sur le graphe $G_1$ en exécutant le programme avec l'argument $Q5$
-            Le nombre d'occurrences et le pourcentage d'apparition de chaque arbre couvrant est indiqué dans le titre de la fenêtre du graphe et au-dessus du dessin du graphe.
-            On peut ainsi constater que chaque arbre couvrant a une probabilité d'apparition de $12,5\%$ , ou $\frac{1}{8}$.
+            De la même manière que pour l'algorithme de Kruskal, le test se fait en exécutant le programme, mais avec l'argument Q5.
+            On peut ainsi constater que tous les arbres couvrants ont une probabilité d'apparition de $12,5\%$ , ou $\frac{1}{8}$.
 
         \subsection{Implémenter l'algorithme de Wilson. Tester l'algorithme un million de fois sur le graphe G1,
         et vérifier expérimentalement que les 8 arbres couvrants ont tous la même probabilité d'apparaître.}\label{subsec:Q6}
-            On peut tester un million de fois cet algorithme sur le graphe $G_1$ en exécutant le programme avec l'argument $Q6$
-            Le nombre d'occurrences et le pourcentage d'apparition de chaque arbre couvrant est indiqué dans le titre de la fenêtre du graphe et au-dessus du dessin du graphe.
-            On constate que chaque arbre couvrant a une probabilité d'apparition de $12,5\%$ , ou $\frac{1}{8}$,
-            on peut en déduire que cette implantation de l'algorithme de Wilson respecte la répartition uniforme des arbres couvrants.
+            Ce test s'effectue à l'aide de l'argument Q6.
+            On constate que chaque arbre couvrant a une probabilité d'apparition de $12,5\%$ , ou $\frac{1}{8}$.
 
     \section{Application ludique : les labyrinthes}\label{sec:labyrinthes}
         \subsection{Écrire un algorithme qui crée un labyrinthe 20x20 obtenu avec la méthode de Kruskal
         et un labyrinthe 20x20 obtenu avec la méthode de Aldous-Broder (ou Wilson).}\label{subsec:Q7.}
             Pour créer un labyrinthe, on commence par créer un graphe en forme de grille à la taille du labyrinthe (ici 20x20).
             Ensuite, on cherche un arbre couvrant avec un des algorithmes écrit précédemment.
+
             Le labyrinthe est défini par cet arbre couvrant.
             Les sommets du graphe sont les salles du labyrinthe et chaque sommet est relié aux sommets de chaque côtés de lui
             (au-dessus, au-dessous, à gauche et à droite).
             Si une arête est marquée comme $used$, c'est un couloir pour le labyrinthe, sinon c'est un mur.
             Ainsi, avec l'implémentation des algorithmes précédents, la création de labyrinthe est très simplifiée.
 
-            En exécutant le programme avec l'argument $Q7$,
-            trois labyrinthes (un par méthode) seront créés et un fichier .tex associé sera créer dans le repertoire out.
+            En exécutant le programme avec l'argument Q7,
+            trois labyrinthes (un par méthode) seront créés et un fichier .tex associé sera créé dans le repertoire out.
 
         \subsection{Pour les deux méthodes (Kurskal ou Aldous-Broder / Wilson),
-        comparer le nombre moyen de cul de sac, la distance moyenne de l'entrée à la sortie.}\label{subsec:Q8}
-            En exécutant le programme avec l'argument $Q8$,
+        comparer le nombre moyen de cul-de-sac, la distance moyenne de l'entrée à la sortie.}\label{subsec:Q8}
+            En exécutant le programme avec l'argument Q8,
             le terminal affichera (pour la méthode Kruskal puis pour la méthode Wilson puis pour la méthode AldousBroder)
-            le nombre de cul de sac moyen, la distance moyenne entre l'entrée et la sortie et le temps d'exécution.
+            le nombre de cul-de-sac moyen, la distance moyenne entre l'entrée et la sortie et le temps d'exécution.\\
 
-            On constate que la méthode Kruskal produit en moyenne 6 cul de sac de plus que la méthode Wilson ou AldousBroder.
-            Cependant, pour une raison qui nous échappe, sur l'ordinateur de Mathieu
-            la production de 1000 labyrinthe avec l'algorithme de Wilson à un temps d'exécution d'environ 150 secondes,
-            contre environ 60 sur l'ordinateur de Paul-Émile.
+            On constate que la méthode Kruskal produit en moyenne environ 120 cul-de-sac,
+            tandis que la méthode Wilson ou Aldous et Broder produit environ 116 cul-de-sac.
+            On constate aussi que la méthode Kruskal produit un labyrinthe avec une distance
+            entre l'entrée et la sortie de 56 cases en moyenne,
+            tandis que la méthode Wilson (ou Aldous et Broder) produit des labyrinthes avec une distance
+            entre l'entrée et la sortie de 59 cases en moyenne.\\
+
+            Ces différences, bien que notables sur une telle moyenne nous semblent négligeables.
+            En effet, résoudre un labyrinthe avec 3\% de cul-de-sac en plus ou en moins ne change pas le défis.
+            De la même manière, un labyrinthe dont la distance entre l'entrée et la sortie est 5\%
+            plus élevée n'est pas véritablement un labyrinthe plus difficile.
 
 \end{document}

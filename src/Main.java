@@ -110,15 +110,15 @@ public class Main {
     }
 
     /**
-     * Test 1000 labyrinthe créer avec la méthode Kruskal et compte le nombre moyen de cul de sac et la distance moyenne de l'entrée à la sortie
+     * Test 1000 labyrinthe créer avec la méthode Kruskal et compte le nombre moyen de cul-de-sac et la distance moyenne de l'entrée à la sortie
      * Fait la même chose avec la méthode Wilson
-     * Affiche le nombre moyen de cul de sac et la distance moyenne de l'entrée à la sortie ainsi que le temps d'exécution en secondes
+     * Affiche le nombre moyen de cul-de-sac et la distance moyenne de l'entrée à la sortie ainsi que le temps d'exécution en secondes
      */
     public static void testLabyKruskalVSWilsonVSAldousBroder() throws EdgeException {
         Algorithme algorithme;
         Labyrinthe labyrinthe;
         Random random = new Random(System.currentTimeMillis());
-        // Nombre moyen de cul de sac
+        // Nombre moyen de cul-de-sac
         float nbMoyenCDS;
         // Taille moyenne du chemin entre l'entrée et la sortie
         float distanceMoyenne;
